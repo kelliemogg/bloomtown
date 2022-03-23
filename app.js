@@ -8,14 +8,17 @@
   const driver = neo4j.driver(uri, neo4j.auth.basic(user, password))
   const session = driver.session()
  
+  // Express Server code
+  const express = require('express')
+  const app = express();
+  const path = require('path');
+  const router = express.Router();
 
   // Static Files
-  const express = require('express');
-  const app = express();
-  
-  app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html')
+  router.get('/', (req, res) => {
+    res.sendFile(path.join('/index.html'))
   });
+  
 
   try {
  
