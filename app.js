@@ -1,13 +1,3 @@
-(async() => {
-  const neo4j = require('neo4j-driver')
-  
-  const uri = 'neo4j+s://2f4c5155.databases.neo4j.io';
-  const user = 'neo4j';
-  const password = 'bRdI3DS4lOqC9mCpalSAOqHQeRzKZqNH4mYuetyIvtw';
-  
-  const driver = neo4j.driver(uri, neo4j.auth.basic(user, password))
-  const session = driver.session()
- 
   // Express Server code
   const express = require('express')
   const app = express();
@@ -18,6 +8,18 @@
   router.get('/', (req, res) => {
     res.sendFile(path.join('/index.html'))
   });
+
+
+(async() => {
+  const neo4j = require('neo4j-driver')
+  
+  const uri = 'neo4j+s://2f4c5155.databases.neo4j.io';
+  const user = 'neo4j';
+  const password = 'bRdI3DS4lOqC9mCpalSAOqHQeRzKZqNH4mYuetyIvtw';
+  
+  const driver = neo4j.driver(uri, neo4j.auth.basic(user, password))
+  const session = driver.session()
+
   
 
   try {
