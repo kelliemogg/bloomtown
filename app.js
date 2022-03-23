@@ -1,12 +1,14 @@
   // Express Server code
   const express = require('express')
   const app = express();
-  const path = require('path');
-  const router = express.Router();
+
+  app.listen(3000, () => {
+    console.log("Application started and listening on port 3000");
+    });
 
   // Static Files
-  router.get('/', (req, res) => {
-    res.sendFile(path.join('/index.html'))
+  app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/views/index.html')
   });
 
 
