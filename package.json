@@ -1,0 +1,29 @@
+{
+  "name": "bloomtown",
+  "version": "1.0.0",
+  "description": "Bloomtown",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kelliemogg/bloomtown.git"
+  },
+  "keywords": [
+    "garden",
+    "network",
+    "bloomtown"
+  ],
+  "author": "Kellie Mogg, Ben Dosch",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kelliemogg/bloomtown/issues"
+  },
+  "homepage": "https://github.com/kelliemogg/bloomtown#readme",
+  "dependencies": {
+    "express": "^4.17.3",
+    "save": "^2.4.0"
+  }
+}
