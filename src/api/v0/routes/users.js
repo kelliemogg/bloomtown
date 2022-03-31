@@ -1,84 +1,90 @@
-//Imports
-import { Router } from express
-
 //Initilaize
-const user = Router()
+import { Router } from "express";
+const user_router = Router()
+import user_model from "../models/user"
 
 //Create
 
-user.post('/users', async (req, res)=>{
-    const result = await user.findAll()
+/**
+user_router.post('/', async (req, res)=>{
+    const email
+    const password
+    const name
+    const role
+    const result = await user_model.create(email, password, name, role)
     res.json(result)
-  })
+  }) */
 
 //Read
-user.get('/users', async (req, res)=>{
-    const result = await user.findAll()
+user_router.get('/', async (req, res)=>{
+    const result = await user_model.findAll()
     res.json(result)
   })
 
-user.get('/user/:user_id/info', async (req, res)=>{
-    user_id = req.params["user_id"]
-    const result = await user.findById(user_id)
+user_router.get('/:user_id', async (req, res)=>{
+    const user_id = req.params["user_id"]
+    const result = await user_model.findById(user_id)
     res.json(result)
 })
 
-user.get('/user/:id/favorites', async (req, res)=>{
-    user_id = req.params["user_id"]
-    const result = await user.findFavorites(user_id)
+user_router.get('/:user_id/favorites', async (req, res)=>{
+    const user_id = req.params["user_id"]
+    console.log(`Id: ${user_id}`)
+    const result = await user_model.findFavorites(user_id)
     res.json(result)
 })
 
-user.get('/user/:id/favorites/tasks', async (req, res)=>{
-    user_id = req.params["user_id"]
-    const result = await user.findFavoritesTasks(user_id)
+user_router.get('/:user_id/favorites/tasks', async (req, res)=>{
+    const user_id = req.params["user_id"]
+    const result = await user_model.findFavoritesTasks(user_id)
     res.json(result)
 })
 
-user.get('/user/:id/favorites/tasks/:state', async (req, res)=>{
-    user_id = req.params["user_id"]
-    state = req.params["status"]
-    const result = await user.findFavoritesTasks(user_id, state)
+user_router.get('/:user_id/favorites/tasks/:state', async (req, res)=>{
+    const user_id = req.params["user_id"]
+    const state = req.params["state"]
+    const result = await user_model.findFavoritesTasks(user_id, state)
     res.json(result)
 })
 
-user.get('/user/:id/tasks', async (req, res)=>{
-    user_id = req.params["user_id"]
-    const result = await user.findTasks(user_id)
+user_router.get('/:user_id/tasks', async (req, res)=>{
+    const user_id = req.params["user_id"]
+    const result = await user_model.findTasks(user_id)
     res.json(result)
 })
 
-user.get('/user/:id/tasks/claimed', async (req, res)=>{
-    user_id = req.params["user_id"]
-    state = "In progress"
-    const result = await user.findTasks(user_id, state)
+user_router.get('/:user_id/tasks/claimed', async (req, res)=>{
+    const user_id = req.params["user_id"]
+    const state = "In progress"
+    const result = await user_model.findTasks(user_id, state)
     res.json(result)
 })
 
-user.get('/user/:id/tasks/completed', async (req, res)=>{
-    user_id = req.params["user_id"]
-    state = "Completed"
-    const result = await user.findTasks(user_id, state)
+user_router.get('/:user_id/tasks/completed', async (req, res)=>{
+    const user_id = req.params["user_id"]
+    const state = "Completed"
+    const result = await user_model.findTasks(user_id, state)
     res.json(result)
 })
 
 //Update
 
-user.patch('/user/:id', async (req, res)=>{
-    user_id = req.params["user_id"]
-    key = req.params["key"]
-    value = req.params["value"]
-    const result = await user.update(user_id, key, value)
+/**
+user_router.patch('/:user_id', async (req, res)=>{
+    const user_id = req.params["user_id"]
+    const key = req.params["key"]
+    const value = req.params["value"]
+    const result = await user_model.update(user_id, key, value)
     res.json(result)
-  })
+  }) */
 
 //Delete
-user.delete('/user/:id', async (req, res)=>{
-    user_id = req.params["user_id"]
-    const result = await user.del(user_id)
+user_router.delete('/:user_id', async (req, res)=>{
+    const user_id = req.params["user_id"]
+    const result = await user_model.del(user_id)
     res.json(result)
   })
 
 //Esports
 
-export default user
+export default user_router

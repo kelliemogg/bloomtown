@@ -1,14 +1,12 @@
 import { nanoid } from 'nanoid';
 
 const neo4j = require('neo4j-driver');
-require('dotenv').config()
-const neo4j = require('neo4j-driver')
   
 const uri = 'neo4j+s://2f4c5155.databases.neo4j.io';
-const user = 'neo4j';
+const user_name = 'neo4j';
 const password = 'bRdI3DS4lOqC9mCpalSAOqHQeRzKZqNH4mYuetyIvtw';
 
-const driver = neo4j.driver(uri, neo4j.auth.basic(user, password))
+const driver = neo4j.driver(uri, neo4j.auth.basic(user_name, password))
 const session = driver.session()
 
 //Create
@@ -23,7 +21,7 @@ const session = driver.session()
  */
 
 const create = async (email, password, name, role) =>{
-    query = `CREATE (u:User {email=${email}, password${password}, name=${name}, role=${role}}) Return (id(u))`
+    const query = `CREATE (u:User {email=${email}, password${password}, name=${name}, role=${role}}) Return (id(u))`
     const result = await session.run(query)
     return result
 }
@@ -36,7 +34,7 @@ const create = async (email, password, name, role) =>{
  */
 
 const findAll = async () =>{
-    query = `MATCH (u:User) RETURN ([id(u), u.name, u.role])`
+    const query = `MATCH (u:User) RETURN ([id(u), u.name, u.role])`
     const result = await session.run(query)
     return result
 }
@@ -48,7 +46,7 @@ const findAll = async () =>{
  */
 
 const findById = async (user_id) =>{
-    query = `MATCH (u:User) WHERE id(u)=${user_id} RETURN ([u.name, u.role])`
+    const query = `MATCH (u:User) WHERE id(u)=${user_id} RETURN ([u.name, u.role])`
     const result = await session.run(query)
     return result
 }
@@ -60,7 +58,7 @@ const findById = async (user_id) =>{
  */
 
 const findFavorites = async (user_id) =>{
-    query = `MATCH (u:User)-->(g:Garden) WHERE id(u)=${user_id} RETURN (g)`
+    const query = `MATCH (u:User)-->(g:Garden) WHERE id(u)=${user_id} RETURN (g)`
     const result = await session.run(query)
     return result
 }
@@ -69,25 +67,21 @@ const findFavorites = async (user_id) =>{
  * findFavoratesTasks - Finds all the tasks of all the favorate gardens of the
  *                      specified user filtered by status.
  * @param {int} user_id: The id of the user.
- * @param {str} status: The type of tasks to return. Returns all tasks if None.
- *                      Defaults to None.
+ * @param {str} status: The type of tasks to return. Returns all tasks if null.
+ *                      Defaults to null.
  * @returns: All tasks from all favorate gardens of the sepcified user filtered
  *           by status.
  */
 
-const findFavoritesTasks = (user_id, status = None) =>{
-    if (status == "Avalible" || status == "In progress" ||
-        status == "Completed") {
-        query = `MATCH (t:Task)-->(g:Garden)<--(u:User) WHERE ` +
-            `id(u)=${user_id} AND t.status=${status} RETURN (t)`
-    } else if (status == "Current") {
-        query = `MATCH (t:Task)-->(g:Garden)<--(u:User) WHERE ` +
-            `id(u)=${user_id} AND (t.status="Avalible" OR ` + `
-            t.status="In progress") RETURN (t)`
-    } else {
-        query = `MATCH (t:Task)-->(g:Garden)<--(u:User) WHERE ` +
-            `id(u)=${user_id} RETURN (t)`
-    }
+const findFavoritesTasks = async (user_id, status = null) =>{
+    const query = (status == "Avalible" || status == "In progress" ||
+            status == "Completed") ? (`MATCH (t:Task)-->(g:Garden)<--(u:User)` +
+            ` WHERE id(u)=${user_id} AND t.status="${status}" RETURN (t)`)
+        : (status == "Current") ? (`MATCH (t:Task)-->(g:Garden)<--(u:User) ` +
+            `WHERE id(u)=${user_id} AND (t.status="Avalible" OR ` +
+            `t.status="In progress") RETURN (t)`)
+        : (`MATCH (t:Task)-->(g:Garden)<--(u:User) WHERE ` +
+            `id(u)=${user_id} RETURN (t)`);
     const result = await session.run(query)
     return result
 }
@@ -96,18 +90,16 @@ const findFavoritesTasks = (user_id, status = None) =>{
  * findTasks - Finds tasks claimed by the user filtered by status
  * @param {int} user_id: The id of the user.
  * @param {str} status: The status of tasks to retrieve. Returns both completed
- *                      and claimed tasks if None. Defaults to None.
+ *                      and claimed tasks if null. Defaults to null.
  * @returns: Tasks related to the specified user with the statuses selected.
  */
 
-const findTasks = async (user_id, status = None) =>{
-    if (status == "In progress" || status == "Completed") {
-        query = `MATCH (u:User)-->(t:Task) WHERE id(u)=${user_id} AND ` +
-            `t.status=${status} RETURN (t)`
-    } else {
-        query = `MATCH (u:User)-->(t:Task) WHERE id(u)=${user_id} RETURN (t)`
-    }
-    
+const findTasks = async (user_id, status = null) =>{
+    const query = (status == "In progress" || status == "Completed") ? (
+            `MATCH (u:User)-->(t:Task) WHERE id(u)=${user_id} AND ` +
+            `t.status="${status}" RETURN (t)`)
+        : (`MATCH (t:Task)-->(g:Garden)<--(u:User) WHERE ` +
+            `id(u)=${user_id} RETURN (t)`);
     const result = await session.run(query)
     return result
 }
@@ -122,7 +114,7 @@ const findTasks = async (user_id, status = None) =>{
  * @returns: The user updated.
  */
 const update = async (user_id, key, value) =>{
-    query = `MATCH (u:User) WHERE id(u)=${user_id} SET u.${key}=${value} RETURN (u)`
+    const query = `MATCH (u:User) WHERE id(u)=${user_id} SET u.${key}=${value} RETURN (u)`
     const result = await session.run(query)
     return result
 }
@@ -136,7 +128,7 @@ const update = async (user_id, key, value) =>{
  */
 
 const del = async (user_id) =>{
-    query = `MATCH (u:User) WHERE id(u)=${user_id} DETACH DELETE (u)`
+    const query = `MATCH (u:User) WHERE id(u)=${user_id} DETACH DELETE (u)`
     const result = await session.run(query)
     return result
 }

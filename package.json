@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
+    "start": "nodemon --exec babel-node app.js"
   },
   "repository": {
     "type": "git",
@@ -22,8 +22,15 @@
     "url": "https://github.com/kelliemogg/bloomtown/issues"
   },
   "homepage": "https://github.com/kelliemogg/bloomtown#readme",
+  "devDependencies":{
+    "@babel/core": "^7.17.8",
+    "@babel/node": "^7.16.8",
+    "@babel/preset-env": "^7.16.11"
+  },
   "dependencies": {
     "express": "^4.17.3",
+    "neo4j-driver": "^4.4.5",
+    "nanoid": "^3.3.2",
     "save": "^2.4.0"
   }
 }

@@ -1,16 +1,23 @@
-  // Express Server code
-  const express = require('express')
-  const app = express();
+// Express Server code
+import user_router from './src/api/v0/routes/users'
+const express = require('express')
+const app = express()
 
-  app.listen(3000, () => {
-    console.log("Application started and listening on port 3000");
-    });
 
-  // Static Files
-  app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/views/index.html')
+app.listen(3000, () => {
+  console.log("Application started and listening on port 3000");
   });
 
+// Routers
+app.use(express.json())
+app.use(express.urlencoded({extended:true}))
+app.use('/api/users',user_router)
+app.use('/api/user', user_router)
+
+// Static Files
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/views/index.html')
+});
 
 (async() => {
   const neo4j = require('neo4j-driver')
@@ -25,9 +32,7 @@
   
 
   try {
- 
-    const readQuery = `MATCH (g:Garden)
-                       RETURN (g)`
+    const readQuery = `MATCH (g:Garden) RETURN (g)`
     const readResult = await session.readTransaction(tx =>
       tx.run(readQuery)
     )
@@ -42,4 +47,4 @@
  
   // Don't forget to close the driver connection when you're finished with it
   await driver.close()
- })();
+})();
