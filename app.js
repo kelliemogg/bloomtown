@@ -1,5 +1,6 @@
 // Express Server code
 import user_router from './src/api/v0/routes/users'
+import task_router from './src/api/v0/routes/tasks'
 const express = require('express')
 const app = express()
 
@@ -11,8 +12,10 @@ app.listen(3000, () => {
 // Routers
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
-app.use('/api/users',user_router)
+app.use('/api/users', user_router)
 app.use('/api/user', user_router)
+app.use('/api/tasks', task_router)
+app.use('/api/task', task_router)
 
 // Static Files
 app.get('/', (req, res) => {
