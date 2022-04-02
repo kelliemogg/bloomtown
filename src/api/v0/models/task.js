@@ -31,7 +31,7 @@ const create = async (description, due_date) =>{
 
 /**
  * findAll - Finds the id, name, and role of all tasks.
- * @returns: The id, due_date, description, status. and completion_date of all tasks.
+ * @returns: The id, due_date, description, status, and completion_date of all tasks.
  */
 
 const findAll = async () =>{

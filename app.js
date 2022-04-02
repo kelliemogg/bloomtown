@@ -19,6 +19,7 @@ app.use('/api/tasks', task_router)
 app.use('/api/task', task_router)
 app.use('/api/gardens', garden_router)
 app.use('/api/garden', garden_router)
+app.use('/api/', )
 
 // Static Files
 app.get('/', (req, res) => {
