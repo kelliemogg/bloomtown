@@ -74,12 +74,12 @@ const findFavorites = async (user_id) =>{
  */
 
 const findFavoritesTasks = async (user_id, status = null) =>{
-    const query = (status == "Avalible" || status == "In progress" ||
-            status == "Completed") ? (`MATCH (t:Task)-->(g:Garden)<--(u:User)` +
+    const query = (status == "open" || status == "claimed" ||
+            status == "complete") ? (`MATCH (t:Task)-->(g:Garden)<--(u:User)` +
             ` WHERE id(u)=${user_id} AND t.status="${status}" RETURN (t)`)
-        : (status == "Current") ? (`MATCH (t:Task)-->(g:Garden)<--(u:User) ` +
-            `WHERE id(u)=${user_id} AND (t.status="Avalible" OR ` +
-            `t.status="In progress") RETURN (t)`)
+        : (status == "current") ? (`MATCH (t:Task)-->(g:Garden)<--(u:User) ` +
+            `WHERE id(u)=${user_id} AND (t.status="open" OR ` +
+            `t.status="claimed") RETURN (t)`)
         : (`MATCH (t:Task)-->(g:Garden)<--(u:User) WHERE ` +
             `id(u)=${user_id} RETURN (t)`);
     const result = await session.run(query)
@@ -89,13 +89,13 @@ const findFavoritesTasks = async (user_id, status = null) =>{
 /**
  * findTasks - Finds tasks claimed by the user filtered by status
  * @param {int} user_id: The id of the user.
- * @param {str} status: The status of tasks to retrieve. Returns both completed
+ * @param {str} status: The status of tasks to retrieve. Returns both complete
  *                      and claimed tasks if null. Defaults to null.
  * @returns: Tasks related to the specified user with the statuses selected.
  */
 
 const findTasks = async (user_id, status = null) =>{
-    const query = (status == "In progress" || status == "Completed") ? (
+    const query = (status == "claimed" || status == "complete") ? (
             `MATCH (u:User)-->(t:Task) WHERE id(u)=${user_id} AND ` +
             `t.status="${status}" RETURN (t)`)
         : (`MATCH (t:Task)-->(g:Garden)<--(u:User) WHERE ` +
@@ -132,6 +132,8 @@ const del = async (user_id) =>{
     const result = await session.run(query)
     return result
 }
+
+//Exports
 
 export default {
     create,

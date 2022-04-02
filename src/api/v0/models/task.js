@@ -4,7 +4,7 @@ const neo4j = require('neo4j-driver');
   
 const uri = 'neo4j+s://2f4c5155.databases.neo4j.io';
 const user_name = 'neo4j';
-const password = 'bRdIthreeDS4lOqC9mCpalSAOqHQeRzKZqNH4mYuetyIvtw';
+const password = 'bRdI3DS4lOqC9mCpalSAOqHQeRzKZqNH4mYuetyIvtw';
 
 const driver = neo4j.driver(uri, neo4j.auth.basic(user_name, password))
 const session = driver.session()
@@ -13,12 +13,16 @@ const session = driver.session()
 
 /**
  * create - Creates a new task node.
- * @param {TBD} TBD: TBD
+ * @param {str} description: of the new task.
+ * @param {str} due_date: of the new task.
  * @returns: The id of the newly created task.
  */
 
-const create = async (tbd) =>{
-    const query = `CREATE (t:Task {tbd=${tbd}}) Return (id(t))`
+ 
+const create = async (description, due_date) =>{
+    const query = (`CREATE (t:Task {completion_date="null"}, ` +
+        `description="${description}", due_date=$="${due_date}", status="open")` + 
+        ` Return (id(t))`)
     const result = await session.run(query)
     return result
 }
@@ -70,8 +74,11 @@ const findByLocation = async (location_type, location_value) =>{
  */
 
 const findByStatus = async (status = null) =>{
-    const query = (status == "In progress" || status == "Completed") ? (
+    const query = (status == "open" || status == "complete" ||
+        status == "claimed") ? (
             `MATCH (t:Task)WHERE t.status="${status}" RETURN (t)`)
+        : (status == "current") ? (`MATCH (t:Task) WHERE id(u)=${user_id}` +
+            ` AND (t.status="open" OR t.status="claimed") RETURN (t)`)
         : (`MATCH (t:Task) RETURN (t)`);
     const result = await session.run(query)
     return result
@@ -105,6 +112,8 @@ const del = async (task_id) =>{
     const result = await session.run(query)
     return result
 }
+
+//Exports
 
 export default {
     create,
