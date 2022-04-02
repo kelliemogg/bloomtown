@@ -1,11 +1,11 @@
-id,description,due_date,status,completion_date
-0,Water plants,4/7/2022,open,null
-1,Build garden bed,null,open,null
-2,Water plants,4/1/2022,complete,3/29/2022
-3,Plant tomatoes,4/5/2022,complete,3/12/2022
-4,Harvest sunchokes,4/16/2022,complete,4/15/2022
-5,Churn compost,3/20/2022,open,null
-6,Donate new trowels,null,complete,3/4/2022
-7,Fertelize beds,5/5/2022,complete,4/12/2022
-8,Weed beds,4/5/2022,complete,3/12/2022
-9,Donate seeds,null,open,null
+description,due_date,status,completion_date
+Water plants,4/7/2022,open,null
+Build garden bed,null,open,null
+Water plants,4/1/2022,complete,3/29/2022
+Plant tomatoes,4/5/2022,complete,3/12/2022
+Harvest sunchokes,4/16/2022,complete,4/15/2022
+Churn compost,3/20/2022,open,null
+Donate new trowels,null,complete,3/4/2022
+Fertelize beds,5/5/2022,complete,4/12/2022
+Weed beds,4/5/2022,complete,3/12/2022
+Donate seeds,null,open,null

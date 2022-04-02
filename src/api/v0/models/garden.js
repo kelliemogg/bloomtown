@@ -81,7 +81,27 @@ const findByLocation = async (location_type, location_value) =>{
  */
 
 const findLeader = async (garden_id) =>{
-    const query = `MATCH (g:Garden)<--(u:User) WHERE id(g)=${garden_id} RETURN (id(u), u.name)`
+    const query = `MATCH (g:Garden)<--(u:User) WHERE id(g)=${garden_id} RETURN ([id(u), u.name])`
+    const result = await session.run(query)
+    return result
+}
+
+/**
+ * findTasks - Finds all tasks associated with a garden.
+ * @param {str} garden_id The id of the graden.
+ * @param {*} status 
+ * @returns The id, due_date, description, status, and completion_date of all
+ *          tasks from the specificed garden with the selected status.
+ */
+
+const findTasks = async (garden_id, status=null) =>{
+    const query = (status == "claimed" || status == "complete" ||
+        status == "open") ? (`MATCH (g:Garden)<--(t:Task) ` +
+        `WHERE id(g)=${garden_id} AND t.status="${status}" RETURN (t)`)
+    : (status == "current") ? (`MATCH (g:Garden)<--(t:Task) ` +
+        `WHERE id(g)=${garden_id} AND (t.status="open" OR t.status="claimed") ` +
+        `RETURN (t)`)
+    : (`MATCH (g:Garden)<--(t:Task) WHERE id(g)=${garden_id} RETURN (t)`);
     const result = await session.run(query)
     return result
 }
@@ -124,6 +144,7 @@ export default {
     findById,
     findByLocation,
     findLeader,
+    findTasks,
     update,
     del
 }

@@ -1,5 +1,5 @@
-id,name,email,password,role,garden_id
-0,Ichi,go@garden.com,e10adc3949ba59abbe56e057f20f883e,leader,0
-1,Ni,roku@garden.com,25f9e794323b453885f5181f1b624d0b,leader,1
-2,San,sichi@garden.com,d8578edf8458ce06fbc5bb76a58c5ca4,comunity,0
-3,Shi,hachi@garden.com,5f4dcc3b5aa765d61d8327deb882cf99,comunity,1
+name,email,password,role
+Ichi,go@garden.com,e10adc3949ba59abbe56e057f20f883e,leader
+Ni,roku@garden.com,25f9e794323b453885f5181f1b624d0b,leader
+San,sichi@garden.com,d8578edf8458ce06fbc5bb76a58c5ca4,comunity
+Shi,hachi@garden.com,5f4dcc3b5aa765d61d8327deb882cf99,comunity

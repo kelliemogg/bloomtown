@@ -31,6 +31,16 @@ garden_router.get('/:location_type/:location_value', async (req, res)=>{
     res.json(result)
 })
 
+garden_router.get('/:garden_id/tasks', async (req, res)=>{
+    const result = await garden_model.findTasks(req.params.garden_id)
+    res.json(result)
+})
+
+garden_router.get('/:garden_id/tasks/:status', async (req, res)=>{
+    const result = await garden_model.findTasks(req.params.garden_id, req.params.status)
+    res.json(result)
+})
+
 garden_router.get('/:garden_id/leader', async (req, res)=>{
     const result = await garden_model.findLeader(req.params.garden_id)
     res.json(result)
