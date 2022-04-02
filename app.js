@@ -1,6 +1,7 @@
 // Express Server code
 import user_router from './src/api/v0/routes/users'
 import task_router from './src/api/v0/routes/tasks'
+import garden_router from './src/api/v0/routes/gardens'
 const express = require('express')
 const app = express()
 
@@ -16,6 +17,8 @@ app.use('/api/users', user_router)
 app.use('/api/user', user_router)
 app.use('/api/tasks', task_router)
 app.use('/api/task', task_router)
+app.use('/api/gardens', garden_router)
+app.use('/api/garden', garden_router)
 
 // Static Files
 app.get('/', (req, res) => {
