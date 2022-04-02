@@ -1,8 +1,9 @@
 // Express Server code
 import user_router from './src/api/v0/routes/users'
 import task_router from './src/api/v0/routes/tasks'
-const express = require('express')
-const app = express()
+const express = require('express');
+const app = express();
+const Cors = require('cors');
 
 
 app.listen(3000, () => {
@@ -17,9 +18,23 @@ app.use('/api/user', user_router)
 app.use('/api/tasks', task_router)
 app.use('/api/task', task_router)
 
+// CSS files
+app.use(express.static('public'))
+app.use('/css', express.static(__dirname + 'public/css'))
+app.use('/js', express.static(__dirname + 'public/js'))
+
 // Static Files
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/views/index.html')
+});
+app.get('/about', (req, res) => {
+  res.sendFile(__dirname + '/views/AboutUs.html')
+});
+app.get('/leader', (req, res) => {
+  res.sendFile(__dirname + '/views/leader.html')
+});
+app.get('/user', (req, res) => {
+  res.sendFile(__dirname + '/views/user.html')
 });
 
 (async() => {
