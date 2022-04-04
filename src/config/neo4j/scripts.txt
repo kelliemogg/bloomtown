@@ -1,0 +1,18 @@
+//Load garden test data
+LOAD CSV WITH HEADERS FROM 'https://docs.google.com/spreadsheets/d/1Xw9y8wyp_j_Fcs2pyxwYRxJ3VbR9YzFd_sUT_EBD01Q/export?format=csv' as garden
+MERGE (g:Garden {id: garden.id, name: garden.name, building_num: garden.building_num, street: garden.street, city: garden.city, state: garden.state, zip: garden.zip, country: garden.country});
+ 
+//Load user test data
+LOAD CSV WITH HEADERS FROM 'https://docs.google.com/spreadsheets/d/1w6UuqQVwhENdHmpwiIiV7iQublT-RJ1FbYtQWgBHthQ/export?format=csv' as user
+MERGE (u:User {id: user.id, name: user.name, email: user.email, password: user.password, role: user.role});
+ 
+//Load task test data
+LOAD CSV WITH HEADERS FROM 'https://docs.google.com/spreadsheets/d/1vt8HsJHH1dSgHCYSXXTu82hbaM5BUrWWWEX_xyi7jMs/export?format=csv' as task
+MERGE (t:Task {id: task.id, description: task.description, due_date: task.due_date, status: task.status, completion_date: task.completion_date});
+ 
+//Load garden leader test relationship
+LOAD CSV WITH HEADERS FROM 'https://docs.google.com/spreadsheets/d/1Kmv6mVzeXbSGHcihu-SpnVyjEEbNFpJHg8YhFCMBnwk/export?format=csv' as row
+MATCH (u:User) where  u.id = row.user_id
+MATCH (g:Garden) where g.id = row.garden_id
+WITH u, g
+MERGE (u)-[:Leads]->(g);
