@@ -5,7 +5,20 @@ import garden_router from './src/api/v0/routes/gardens'
 import relationship_router from './src/api/v0/routes/reationships'
 const express = require('express')
 const app = express()
+const ejs = require('ejs')
 
+// CORS 
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
+// Render CSS and JS files
+app.use(express.static(__dirname + '/public'))
+
+// Set view engine
+app.set('view engine', 'ejs')
 
 app.listen(3000, () => {
   console.log("Application started and listening on port 3000");
@@ -22,10 +35,21 @@ app.use('/api/gardens', garden_router)
 app.use('/api/garden', garden_router)
 app.use('/api/', relationship_router)
 
+
 // Static Files
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/views/index.html')
+  res.render('pages/index')
 });
+app.get('/about', (req, res) => {
+  res.render('pages/about')
+});
+app.get('/leader', (req, res) => {
+  res.render('pages/leader')
+});
+app.get('/user', (req, res) => {
+  res.render('pages/user')
+});
+
 
 (async() => {
   const neo4j = require('neo4j-driver')
