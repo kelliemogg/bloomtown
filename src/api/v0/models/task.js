@@ -20,9 +20,9 @@ const session = driver.session()
 
  
 const create = async (description, due_date) =>{
-    const query = (`CREATE (t:Task {completion_date="null"}, ` +
-        `description="${description}", due_date=$="${due_date}", status="open")` + 
-        ` Return (id(t))`)
+    const query = (`CREATE (t:Task {completion_date="null", ` +
+        `description="${description}", due_date=$="${due_date}", ` + 
+        `status="open") Return (id(t))`)
     const result = await session.run(query)
     return result
 }
@@ -31,7 +31,7 @@ const create = async (description, due_date) =>{
 
 /**
  * findAll - Finds the id, name, and role of all tasks.
- * @returns: The id, name, and role of all tasks.
+ * @returns: The id, due_date, description, status, and completion_date of all tasks.
  */
 
 const findAll = async () =>{
@@ -41,13 +41,14 @@ const findAll = async () =>{
 }
 
 /**
- * findById - Finds the task with the given Id.
+ * findById - Finds the task with the given id.
  * @param {int} task_id: The id of the task.
- * @returns: The name and role of the task.
+ * @returns: The id, due_date, description, status. and completion_date of the
+ *           task.
  */
 
 const findById = async (task_id) =>{
-    const query = `MATCH (t:Task) WHERE id(u)=${task_id} RETURN (t)`
+    const query = `MATCH (t:Task) WHERE id(t)=${task_id} RETURN (t)`
     const result = await session.run(query)
     return result
 }
@@ -70,14 +71,15 @@ const findByLocation = async (location_type, location_value) =>{
 /**
  * findByStatus - Finds all tasks filtered by status.
  * @param {str} status: The status of tasks to retrieve. 
- * @returns The filtered tasks.
+ * @returns The id, due_date, description, status. and completion_date
+ *          of the filtered tasks.
  */
 
 const findByStatus = async (status = null) =>{
     const query = (status == "open" || status == "complete" ||
         status == "claimed") ? (
             `MATCH (t:Task)WHERE t.status="${status}" RETURN (t)`)
-        : (status == "current") ? (`MATCH (t:Task) WHERE id(u)=${user_id}` +
+        : (status == "current") ? (`MATCH (t:Task) WHERE id(t)=${user_id}` +
             ` AND (t.status="open" OR t.status="claimed") RETURN (t)`)
         : (`MATCH (t:Task) RETURN (t)`);
     const result = await session.run(query)
@@ -91,7 +93,8 @@ const findByStatus = async (status = null) =>{
  * @param {int} task_id: The id of the task.
  * @param {str} key: The name of the perameter to update.
  * @param {str} value: The new value for the perameter
- * @returns: The task updated.
+ * @returns: The id, due_date, description, status. and completion_date of
+ *           the task updated.
  */
 const update = async (task_id, key, value) =>{
     const query = `MATCH (t:Task) WHERE id(t)=${task_id} SET t.${key}="${value}" RETURN (t)`
@@ -104,7 +107,7 @@ const update = async (task_id, key, value) =>{
 /**
  * del - Deletes a task node and all relationships conected to it.
  * @param {int} task_id: Id of task to delete.
- * @returns 
+ * @returns None
  */
 
 const del = async (task_id) =>{

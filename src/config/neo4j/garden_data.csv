@@ -1,3 +1,3 @@
-id,name,building_num,street,city,state,zip,country
-0,Kyu,12345,Main st.,Tulsa,OK,74103,USA
-1,Zu,67890,High st.,Los Angeles,CA,91406,USA
+name,building_num,street,city,state,zip,country
+Kyu,12345,Main st.,Tulsa,OK,74103,USA
+Zu,67890,High st.,Los Angeles,CA,91406,USA

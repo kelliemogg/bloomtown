@@ -13,6 +13,7 @@ task_router.post('/', async (req, res)=>{
   }) */
 
 //Read
+
 task_router.get('/', async (req, res)=>{
     const result = await task_model.findAll()
     res.json(result)
@@ -44,6 +45,7 @@ task_router.patch('/:task_id', async (req, res)=>{
   }) */
 
 //Delete
+
 task_router.delete('/:task_id', async (req, res)=>{
     const result = await task_model.del(req.params.task_id)
     res.json(result)
