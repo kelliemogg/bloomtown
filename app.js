@@ -22,11 +22,6 @@ app.use('/api/gardens', garden_router)
 app.use('/api/garden', garden_router)
 
 
-// CSS files
-app.use(express.static('public'))
-app.use('/css', express.static(__dirname + 'public/css'))
-app.use('/js', express.static(__dirname + 'public/js'))
-
 // Static Files
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/views/index.html')
