@@ -15,7 +15,7 @@ relationship_router.post('/', async (req, res)=>{
 
 //Read
 
-relationship_router.get('/Leaders', async (req, res)=>{
+relationship_router.get('/leaders', async (req, res)=>{
     const result = await relationship_model.findLeaders()
     res.json(result)
 })
@@ -23,7 +23,7 @@ relationship_router.get('/Leaders', async (req, res)=>{
 //Update
 
 //Delete
-relationship_router.delete('/:r_id', async (req, res)=>{
+relationship_router.delete('/relationship/id/:r_id', async (req, res)=>{
     const result = await relationship_model.delByID(req.params.r_id)
     res.json(result)
   })

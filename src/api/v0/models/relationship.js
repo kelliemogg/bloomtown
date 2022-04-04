@@ -85,7 +85,7 @@ const findById = async (r_id) =>{
  */
 
 const findLeaders = async () =>{
-    const query = `MATCH (u:User-[r:Leads]->g:Garden) ` +
+    const query = `MATCH (u:User)-[r:Leads]->(g:Garden) ` +
         `RETURN ([id(r), id(u), u.name, id(g), (g.name)])`
     const result = await session.run(query)
     return result
