@@ -20,8 +20,9 @@ const session = driver.session()
  * @returns: The id of the newly created user.
  */
 
-const create = async (email, password, name, role) =>{
-    const query = `CREATE (u:User {email=${email}, password${password}, name=${name}, role=${role}}) Return (id(u))`
+ const create = async (email, password, name, role) =>{
+    const query = (`CREATE (u:User {email: "${email}", password: "${password}",` +
+    ` name: "${name}", role: "${role}"}) Return (id(u))`)
     const result = await session.run(query)
     return result
 }
@@ -94,11 +95,11 @@ const findFavoritesTasks = async (user_id, status = null) =>{
  * @returns: Tasks related to the specified user with the statuses selected.
  */
 
-const findTasks = async (user_id, status = null) =>{
+ const findTasks = async (user_id, status = null) =>{
     const query = (status == "claimed" || status == "complete") ? (
             `MATCH (u:User)-->(t:Task) WHERE id(u)=${user_id} AND ` +
             `t.status="${status}" RETURN (t)`)
-        : (`MATCH (t:Task)-->(g:Garden)<--(u:User) WHERE ` +
+        : (`MATCH (u:User)-->(t:Task) WHERE ` +
             `id(u)=${user_id} RETURN (t)`);
     const result = await session.run(query)
     return result
@@ -114,7 +115,7 @@ const findTasks = async (user_id, status = null) =>{
  * @returns: The user updated.
  */
 const update = async (user_id, key, value) =>{
-    const query = `MATCH (u:User) WHERE id(u)=${user_id} SET u.${key}=${value} RETURN (u)`
+    const query = `MATCH (u:User) WHERE id(u)=${user_id} SET u.${key}="${value}" RETURN (u)`
     const result = await session.run(query)
     return result
 }

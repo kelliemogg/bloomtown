@@ -5,13 +5,12 @@ import user_model from "../models/user"
 
 //Create
 
-/**
 user_router.post('/', async (req, res)=>{
     const result = await user_model.create(
-        req.params.email, req.params.password, req.params.name, req.params.role
+        req.body.email, req.body.password, req.body.name, req.body.role
         )
     res.json(result)
-  }) */
+  })
 
 //Read
 user_router.get('/all', async (req, res)=>{
@@ -39,7 +38,7 @@ user_router.get('/id/:user_id/favorites/tasks/:status', async (req, res)=>{
         req.params.user_id, req.params.status
         )
     res.json(result)
-}) // Needs work
+})
 
 user_router.get('/id/:user_id/tasks', async (req, res)=>{
     const result = await user_model.findTasks(req.params.user_id)
@@ -55,13 +54,12 @@ user_router.get('/id/:user_id/tasks/:status', async (req, res)=>{
 
 //Update
 
-/**
 user_router.patch('/:user_id', async (req, res)=>{
     const result = await user_model.update(
-        req.params.user_id, req.params.key, req.params.value
+        req.params.user_id, req.body.key, req.body.value
         )
     res.json(result)
-  }) */
+  })
 
 //Delete
 user_router.delete('/id/:user_id', async (req, res)=>{
