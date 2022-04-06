@@ -2,17 +2,16 @@
 import { Router } from "express";
 const garden_router = Router()
 import garden_model from "../models/garden"
+import task_model from "../models/task"
 
 //Create
 
-/**
-garden_router.post('/', async (req, res)=>{
-    const result = await garden_model.create(
-        req.params.name, req.params.building_num, req.params.street,
-        req.params.city, req.params.state, req.params.country, req.params.zip
-        )
-    res.json(result)
-  }) */
+garden_router.post('/id/:garden_id/tasks', async (req, res)=>{
+  const result = await task_model.create(
+      req.params.garden_id, req.body.description, req.body.due_date
+      )
+  res.json(result)
+})
 
 //Read
 
@@ -48,13 +47,12 @@ garden_router.get('/id/:garden_id/leader', async (req, res)=>{
 
 //Update
 
-/**
 garden_router.patch('/id/:garden_id', async (req, res)=>{
     const result = await garden_model.update(
-        req.params.garden_id, req.params.key, req.params.value
+        req.params.garden_id, req.body.key, req.body.value
         )
     res.json(result)
-  }) */
+  })
 
 //Delete
 garden_router.delete('/id/:garden_id', async (req, res)=>{

@@ -2,6 +2,7 @@
 import { Router } from "express";
 const user_router = Router()
 import user_model from "../models/user"
+import garden_model from "../models/garden"
 
 //Create
 
@@ -12,6 +13,15 @@ user_router.post('/', async (req, res)=>{
     res.json(result)
   })
 
+user_router.post('/id/:user_id/leads', async (req, res)=>{
+    const result = await garden_model.create(
+        req.params.user_id, req.body.name, req.body.building_num,
+        req.body.street, req.body.city, req.body.state, req.body.country,
+        req.body.zip
+        )
+    res.json(result)
+})
+
 //Read
 user_router.get('/all', async (req, res)=>{
     const result = await user_model.findAll()
@@ -20,6 +30,11 @@ user_router.get('/all', async (req, res)=>{
 
 user_router.get('/id/:user_id', async (req, res)=>{
     const result = await user_model.findById(req.params.user_id)
+    res.json(result)
+})
+
+user_router.get('/id/:user_id/leads', async (req, res)=>{
+    const result = await user_model.findLeads(req.params.user_id)
     res.json(result)
 })
 
@@ -54,7 +69,7 @@ user_router.get('/id/:user_id/tasks/:status', async (req, res)=>{
 
 //Update
 
-user_router.patch('/:user_id', async (req, res)=>{
+user_router.patch('/id/:user_id', async (req, res)=>{
     const result = await user_model.update(
         req.params.user_id, req.body.key, req.body.value
         )

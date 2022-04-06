@@ -53,6 +53,18 @@ const findById = async (user_id) =>{
 }
 
 /**
+ * findLeads - Finds the gardens a user leads.
+ * @param {str} user_id 
+ * @returns 
+ */
+
+const findLeads = async (user_id) =>{
+    const query = `MATCH (u:User)-[r:Leads]->(g:Garden) WHERE id(u)=${user_id} RETURN (g)`
+    const result = await session.run(query)
+    return result
+}
+
+/**
  * findFavorates - Finds all the gardens favorated by the speceifed user.
  * @param {int} user_id: The id of the user.
  * @returns: All gardens favorated by specified user.
@@ -140,6 +152,7 @@ export default {
     create,
     findAll,
     findById,
+    findLeads,
     findFavorites,
     findFavoritesTasks,
     findTasks,
