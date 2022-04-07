@@ -3,15 +3,6 @@ import { Router } from "express";
 const task_router = Router()
 import task_model from "../models/task"
 
-//Create
-
-/**
-task_router.post('/', async (req, res)=>{
-
-    const result = await task_model.create()
-    res.json(result)
-  }) */
-
 //Read
 
 task_router.get('/all', async (req, res)=>{
@@ -29,20 +20,19 @@ task_router.get('/location/:location_type/:location_value', async (req, res)=>{
     res.json(result)
 })
 
-task_router.get('status/:status', async (req, res)=>{
+task_router.get('/status/:status', async (req, res)=>{
     const result = await task_model.findByStatus(req.params.status)
     res.json(result)
 })
 
 //Update
 
-/**
 task_router.patch('/id/:task_id', async (req, res)=>{
     const result = await task_model.update(
-        req.params.task_id, req.params.key, req.params.value
+        req.params.task_id, req.body.key, req.body.value
         )
     res.json(result)
-  }) */
+  })
 
 //Delete
 
