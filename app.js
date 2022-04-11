@@ -1,4 +1,5 @@
 // Express Server code
+
 import user_router from './src/api/v0/routes/users'
 import task_router from './src/api/v0/routes/tasks'
 import garden_router from './src/api/v0/routes/gardens'
@@ -6,6 +7,7 @@ import relationship_router from './src/api/v0/routes/reationships'
 const express = require('express')
 const app = express()
 const ejs = require('ejs')
+
 
 // CORS 
 app.use(function(req, res, next) {
@@ -15,7 +17,7 @@ app.use(function(req, res, next) {
 });
 
 // Render CSS and JS files
-app.use(express.static(__dirname + '/public'))
+app.use(express.static(__dirname + '/public/'));
 
 // Set view engine
 app.set('view engine', 'ejs')
@@ -38,16 +40,16 @@ app.use('/api/', relationship_router)
 
 // Static Files
 app.get('/', (req, res) => {
-  res.render('pages/index')
+  res.render('index')
 });
 app.get('/about', (req, res) => {
-  res.render('pages/about')
+  res.render('about')
 });
 app.get('/leader', (req, res) => {
-  res.render('pages/leader')
+  res.render('leader')
 });
-app.get('/user', (req, res) => {
-  res.render('pages/user')
+app.get('/volunteer', (req, res) => {
+  res.render('volunteer')
 });
 
 

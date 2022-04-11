@@ -1,0 +1,89 @@
+table {
+  border-collapse: collapse;
+  text-align: left;
+  margin-bottom: 0;
+  margin-top: 36px;
+  max-width: 95%;
+  float: right;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+.hide {
+  max-width: 10px;
+}
+
+.res-table {
+  margin: 1em 0;
+  min-width: 300px;
+}
+
+.res-table tr {
+  border-top: 1px solid #dddddd;
+  border-bottom: 1px solid #ddd;
+}
+
+.res-table th {
+  display: none;
+}
+
+.res-table td {
+  display: block;
+}
+
+.res-table td: first-child {
+  padding-top: .5em;
+}
+
+.res-table td:last-child {
+  padding-bottom: .5em;
+}
+
+.res-table td:before {
+  content: attr(data-th) ": ";
+  font-weight: bold;
+  width: 6.5em;
+  display: inline-block;
+}
+
+@media (min-width: 480px) {
+  .res-table td:before {
+    display: none;
+  }
+}
+
+.res-table th, .res-table td {
+  text-align: left;
+}
+
+.res-table th:first-child, .res-table td:first-child {
+  padding-left: 0;
+}
+
+@media (min-width: 480px) {
+  .res-table th, .res-table td {
+    display: table-cell;
+    padding: .25em .5em;
+  }
+}
+
+.res-table th:last-child, .res-table td:last-child {
+  padding-right: 0;
+}
+
+@media (min-width: 480px) {
+  .res-table th, .res-table td {
+    padding: 1em !important;
+  }
+}
+
+@media (min-width: 606px) {
+  .small-buff {
+    margin-top: 160px;
+  }
+}
+
