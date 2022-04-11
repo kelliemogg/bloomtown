@@ -65,7 +65,7 @@ user_router.get('/id/:user_id/tasks/:status', async (req, res)=>{
         req.params.user_id, req.params.status
         )
     res.json(result)
-}) // Needs work 
+})
 
 //Update
 
