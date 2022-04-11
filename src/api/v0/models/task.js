@@ -1,12 +1,9 @@
-import { nanoid } from 'nanoid';
-
+require('dotenv').config()
 const neo4j = require('neo4j-driver');
-  
-const uri = 'neo4j+s://2f4c5155.databases.neo4j.io';
-const user_name = 'neo4j';
-const password = 'bRdI3DS4lOqC9mCpalSAOqHQeRzKZqNH4mYuetyIvtw';
-
-const driver = neo4j.driver(uri, neo4j.auth.basic(user_name, password))
+const driver = neo4j.driver(
+    process.env.URI,
+    neo4j.auth.basic(process.env.USER_NAME, process.env.PASSWORD)
+)
 const session = driver.session()
 
 //Create

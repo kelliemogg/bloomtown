@@ -1,4 +1,5 @@
 // Express Server code
+require('dotenv').config()
 import user_router from './src/api/v0/routes/users'
 import task_router from './src/api/v0/routes/tasks'
 import garden_router from './src/api/v0/routes/gardens'
@@ -7,8 +8,8 @@ const express = require('express')
 const app = express()
 
 
-app.listen(3000, () => {
-  console.log("Application started and listening on port 3000");
+app.listen(process.env.PORT, () => {
+  console.log(`Application started and listening on port ${process.env.PORT}`);
   });
 
 // Routers
@@ -27,17 +28,13 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/views/index.html')
 });
 
-(async() => {
-  const neo4j = require('neo4j-driver')
-  
-  const uri = 'neo4j+s://2f4c5155.databases.neo4j.io';
-  const user = 'neo4j';
-  const password = 'bRdI3DS4lOqC9mCpalSAOqHQeRzKZqNH4mYuetyIvtw';
-  
-  const driver = neo4j.driver(uri, neo4j.auth.basic(user, password))
+(async() => {  
+  const neo4j = require('neo4j-driver');
+  const driver = neo4j.driver(
+    process.env.URI,
+    neo4j.auth.basic(process.env.USER_NAME, process.env.PASSWORD)
+  )
   const session = driver.session()
-
-  
 
   try {
     const readQuery = `MATCH (g:Garden) RETURN (g)`
