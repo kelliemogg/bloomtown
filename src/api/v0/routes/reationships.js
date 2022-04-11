@@ -5,26 +5,33 @@ import relationship_model from "../models/relationship"
 
 //Create
 
-/**
-relationship_router.post('/', async (req, res)=>{
+relationship_router.post('/relationship', async (req, res)=>{
     const result = await relationship_model.create(
-        req.params.id
-        )
+        req.body.a_id, req.body.b_id, req.body.type
+    )
     res.json(result)
-  }) */
+  })
 
 //Read
+
+relationship_router.get('/relationship', async (req, res)=>{
+  const result = await relationship_model.findByIds(
+      req.body.a_id, req.body.b_id
+  )
+  res.json(result)
+})
 
 relationship_router.get('/leaders', async (req, res)=>{
     const result = await relationship_model.findLeaders()
     res.json(result)
 })
 
-//Update
-
 //Delete
-relationship_router.delete('/relationship/id/:r_id', async (req, res)=>{
-    const result = await relationship_model.delByID(req.params.r_id)
+
+relationship_router.delete('/relationship', async (req, res)=>{
+    const result = await relationship_model.del(
+      req.body.a_id, req.body.b_id, req.body.type
+    )
     res.json(result)
   })
 

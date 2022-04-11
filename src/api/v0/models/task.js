@@ -12,17 +12,18 @@ const session = driver.session()
 //Create
 
 /**
- * create - Creates a new task node.
- * @param {str} description: of the new task.
- * @param {str} due_date: of the new task.
+ * create - Creates a new task node and located relationship.
+ * @param {str} garden_id The id of the garden where the task will be located.
+ * @param {str} description Description of the new task.
+ * @param {str} due_date Date the new task is due to expire.
  * @returns: The id of the newly created task.
  */
 
- 
-const create = async (description, due_date) =>{
-    const query = (`CREATE (t:Task {completion_date="null", ` +
-        `description="${description}", due_date=$="${due_date}", ` + 
-        `status="open") Return (id(t))`)
+ const create = async (garden_id, description, due_date) =>{
+    const query = (`MATCH (g:Garden) WHERE id(g)=${garden_id} ` +
+        `CREATE (t:Task {description: "${description}", ` +
+        `due_date: "${due_date}", completion_date: "null", status: "open"})` +
+        `-[r:Located]->(g) Return (id(t))`)
     const result = await session.run(query)
     return result
 }
@@ -35,7 +36,7 @@ const create = async (description, due_date) =>{
  */
 
 const findAll = async () =>{
-    const query = `MATCH (t:Task) RETURN (t)`
+    const query = `MATCH (t:Task)-->(g:Garden) RETURN ([t, g])`
     const result = await session.run(query)
     return result
 }
@@ -48,7 +49,7 @@ const findAll = async () =>{
  */
 
 const findById = async (task_id) =>{
-    const query = `MATCH (t:Task) WHERE id(t)=${task_id} RETURN (t)`
+    const query = `MATCH (t:Task)-->(g:Garden) WHERE id(t)=${task_id} RETURN ([t, g])`
     const result = await session.run(query)
     return result
 }
@@ -63,7 +64,7 @@ const findById = async (task_id) =>{
 
 const findByLocation = async (location_type, location_value) =>{
     const query = (`MATCH (t:Task)-->(g:Garden) WHERE ` +
-        `g.${location_type}="${location_value}" RETURN (t)`)
+        `g.${location_type}="${location_value}" RETURN ([t, g])`)
     const result = await session.run(query)
     return result
 }
@@ -78,10 +79,13 @@ const findByLocation = async (location_type, location_value) =>{
 const findByStatus = async (status = null) =>{
     const query = (status == "open" || status == "complete" ||
         status == "claimed") ? (
-            `MATCH (t:Task)WHERE t.status="${status}" RETURN (t)`)
-        : (status == "current") ? (`MATCH (t:Task) WHERE id(t)=${user_id}` +
-            ` AND (t.status="open" OR t.status="claimed") RETURN (t)`)
-        : (`MATCH (t:Task) RETURN (t)`);
+            `MATCH (t:Task)-->(g:Garden) WHERE t.status="${status}" RETURN ([t, g])`
+            )
+        : (status == "current") ? (
+            `MATCH (t:Task)-->(g:Garden) WHERE t.status="open" OR ` +
+            `t.status="claimed" RETURN ([t, g])`
+            )
+        : (`MATCH (t:Task)-->(g:Garden) RETURN ([t, g])`);
     const result = await session.run(query)
     return result
 }

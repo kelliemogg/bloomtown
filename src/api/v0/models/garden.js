@@ -12,7 +12,8 @@ const session = driver.session()
 //Create
 
 /**
- * create - Creates a new garden node.
+ * create - Creates a new garden node and leads relationship with user.
+ * @param {str} user_id The id of the user who will lead the garden.
  * @param {str} name The gardens name.
  * @param {str} building_num The number of the building from the garden's address.
  * @param {str} street The street from the garden's address.
@@ -20,13 +21,14 @@ const session = driver.session()
  * @param {str} state The state from the garden's address.
  * @param {str} country The country from the garden's address. 
  * @param {str} zip The zipcode from the garden's address.
- * @returns: The id of the newly created garden.
+ * @returns The id of the newly created garden.
  */
  
-const create = async (name, building_num, street, city, state, country, zip) =>{
-    const query = (`CREATE (g:Garden {building_num="${building_num}" ` + 
-        `city="${city}", country="${country}", name="${name}", ` + 
-        `state="${state}", street="${street}", zip="${zip}"}) Return (id(g))`)
+const create = async (user_id, name, building_num, street, city, state, country, zip) =>{
+    const query = (`MATCH (u:User) WHERE id(u)=${user_id} ` +
+        `CREATE (u)-[r:Leads]->(g:Garden {building_num: "${building_num}", ` +
+        `city: "${city}", country: "${country}", name: "${name}", ` + 
+        `state: "${state}", street: "${street}", zip: "${zip}"}) Return (id(g))`)
     const result = await session.run(query)
     return result
 }
@@ -35,7 +37,7 @@ const create = async (name, building_num, street, city, state, country, zip) =>{
 
 /**
  * findAll - Finds all gardens.
- * @returns: The id, name, building_num, street, city, state, country, and zip
+ * @returns The id, name, building_num, street, city, state, country, and zip
  *           of all gardens.
  */
 
@@ -48,7 +50,7 @@ const findAll = async () =>{
 /**
  * findById - Finds the garden with the given Id.
  * @param {str} garden_id The id of the garden.
- * @returns: The id, name, building_num, street, city, state, country, and zip
+ * @returns The id, name, building_num, street, city, state, country, and zip
  *           of the garden.
  */
 
@@ -62,9 +64,9 @@ const findById = async (garden_id) =>{
  * findByLocation - Finds all gardens from gardens in a specific location.
  * @param {str} location_type The location type; state, city, or zipcode.
  * @param {str} location_value The specific instance of the location type to
- *                              retirieve gardens from.
- * @returns: The id, name, building_num, street, city, state, country, and zip
- *           of the gardens from the specified location.
+ *                             retirieve gardens from.
+ * @returns The id, name, building_num, street, city, state, country, and zip
+ *          of the gardens from the specified location.
  */
 
 const findByLocation = async (location_type, location_value) =>{
@@ -114,10 +116,11 @@ const findTasks = async (garden_id, status=null) =>{
  * @param {str} key The name of the perameter to update.
  * @param {str} value The new value for the perameter
  * @returns The id, name, building_num, street, city, state, country, and zip
- *           of the garden updated.
+ *          of the garden updated.
  */
 const update = async (garden_id, key, value) =>{
-    const query = `MATCH (g:Garden) WHERE id(g)=${garden_id} SET g.${key}="${value}" RETURN (g)`
+    const query = (`MATCH (g:Garden) WHERE id(g)=${garden_id} ` +
+    `SET g.${key}="${value}" RETURN (g)`)
     const result = await session.run(query)
     return result
 }
