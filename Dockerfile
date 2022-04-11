@@ -8,7 +8,7 @@ RUN npm install
 
 RUN npm install neo4j-driver 
 
-RUN npm install @babel/core @babel/node @babel/preset-env
+RUN npm install @babel/core @babel/node @babel/preset-env dotenv
 
 RUN npm install express nanoid bcrypt nanode
 
