@@ -74,42 +74,22 @@
 </div><table id="example" class="table res-table table-striped table-bordered" cellspacing="0" width="100%">
         <thead>
             <tr>
-                <th>Task</th>
-                <th>Garden</th>
-                <th>City/State</th>
-                <th>Deadline</th>
-                <th>Status</th>
+                <th scope="col">Task</th>
+                <th scope="col">Garden</th>
+                <th scope="col">Address</th>
+                <th scope="col">Deadline</th>
+                <th scope="col">Status</th>
+                <% console.log("hello") %>
+                <% for (let i = 0; i < task_result.length; i++) { %>
+                <tr>
+                    <td><%= task_result[i].properties.description %></td>
+                    <td><%= task_result[i].properties.due_date %></td>
+                    <td><%= task_result[i].properties.completion_date %></td>
+                    <td><%= task_result[i].properties.status %></td>
+                    </tr>
+                <% }; %>
             </tr>
         </thead>
-        <tbody>
-            <tr>
-                <td data-th="description">Harvest Sunchokes</td>
-                <td data-th="garden">Octopus's Garden</td>
-                <td data-th="location">Tulsa, OK</td>
-                <td data-th="deadline">05/01/2022</td>
-                <td data-th="status">Available</td>
-            </tr>
-            <tr>
-                <td data-th="description">Harvest Sunchokes</td>
-                <td data-th="garden">Octopus's Garden</td>
-                <td data-th="location">Tulsa, OK</td>
-                <td data-th="deadline">05/01/2022</td>
-                <td data-th="status">Available</td>
-            </tr>
-            <tr>
-                <td data-th="description">Harvest Sunchokes</td>
-                <td data-th="garden">Octopus's Garden</td>
-                <td data-th="location">Tulsa, OK</td>
-                <td data-th="deadline">05/01/2022</td>
-                <td data-th="status">Available</td>
-            </tr>
-            <tr>
-                <td data-th="description">Harvest Sunchokes</td>
-                <td data-th="garden">Octopus's Garden</td>
-                <td data-th="location">Tulsa, OK</td>
-                <td data-th="deadline">05/01/2022</td>
-                <td data-th="status">Available</td>
-            </tr>
         </tbody>
     </table></div>
         </div>
