@@ -79,13 +79,14 @@
                 <th scope="col">Address</th>
                 <th scope="col">Deadline</th>
                 <th scope="col">Status</th>
-                <% console.log("hello") %>
                 <% for (let i = 0; i < task_result.length; i++) { %>
                 <tr>
-                    <td><%= task_result[i].properties.description %></td>
-                    <td><%= task_result[i].properties.due_date %></td>
-                    <td><%= task_result[i].properties.completion_date %></td>
-                    <td><%= task_result[i].properties.status %></td>
+                    <td><%= task_result[i][0].properties.description %></td>
+                    <td><%= task_result[i][1].properties.name %></td>
+                    <td><%= `${task_result[i][1].properties.city}, ${task_result[i][1].properties.state}`%></td>
+                    <td><%= task_result[i][0].properties.due_date %></td>
+                    <td><%= task_result[i][0].properties.status %></td>
+                        <% console.log("BAMMMMMM") %>
                     </tr>
                 <% }; %>
             </tr>
