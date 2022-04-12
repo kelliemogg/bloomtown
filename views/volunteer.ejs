@@ -60,7 +60,9 @@
     <form id="searchtasks">
         <select>
             <option value="all">Select Garden</option>
-            <option value="mine">My Gardens</option>
+            <% for (let j = 0; j < data.garden_result.length; j++) { %>
+            <option><%= data.garden_result[j].properties.name %></option>
+          <% } %>
         </select>
         <input id="zipSearchbar" placeholder="enter zip code">
     <input id="citySearchbar" placeholder="enter city/state"><br>
@@ -79,14 +81,13 @@
                 <th scope="col">Address</th>
                 <th scope="col">Deadline</th>
                 <th scope="col">Status</th>
-                <% for (let i = 0; i < task_result.length; i++) { %>
+                <% for (let i = 0; i < data.task_result.length; i++) { %>
                 <tr>
-                    <td><%= task_result[i][0].properties.description %></td>
-                    <td><%= task_result[i][1].properties.name %></td>
-                    <td><%= `${task_result[i][1].properties.city}, ${task_result[i][1].properties.state}`%></td>
-                    <td><%= task_result[i][0].properties.due_date %></td>
-                    <td><%= task_result[i][0].properties.status %></td>
-                        <% console.log("BAMMMMMM") %>
+                    <td><%= data.task_result[i][0].properties.description %></td>
+                    <td><%= data.task_result[i][1].properties.name %></td>
+                    <td><%= `${data.task_result[i][1].properties.city}, ${data.task_result[i][1].properties.state}`%></td>
+                    <td><%= data.task_result[i][0].properties.due_date %></td>
+                    <td><%= data.task_result[i][0].properties.status %></td>
                     </tr>
                 <% }; %>
             </tr>

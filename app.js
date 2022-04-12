@@ -3,7 +3,7 @@ import user_router from './src/api/v0/routes/users'
 import task_router from './src/api/v0/routes/tasks'
 import garden_router from './src/api/v0/routes/gardens'
 import relationship_router from './src/api/v0/routes/reationships'
-import f_task_router from './src/api/v0/routes/frontendroutes'
+import frontend_router from './src/api/v0/routes/frontendroutes'
 const express = require('express')
 const app = express()
 const ejs = require('ejs')
@@ -38,7 +38,7 @@ app.use('/api/garden', garden_router)
 app.use('/api', relationship_router)
 
 // Frontend routes
-app.use('/volunteer', f_task_router)
+app.use('/volunteer', frontend_router)
 
 
 // Static Files
