@@ -1,0 +1,80 @@
+.filter select {
+  width: 170px;
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 0 0 2px #aaa;
+  margin: 10px;
+  background: #eee;
+  font-variant: small-caps;
+}
+
+.filter {
+  text-align: center;
+  margin-top: 30px;
+  font-family: monospace;
+}
+
+.filter input {
+  margin: 10px;
+  margin-top: 30px;
+  padding: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border: none;
+  border-radius: 5px;
+  background: #eee;
+}
+
+.radio {
+  border: none;
+  border-radius: 5px;
+  background: #eee;
+}
+
+button {
+  font-variant: small-caps;
+  height: 45px;
+  margin: 10px;
+  margin-top: 10px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background: #eee;
+  cursor: pointer;
+}
+
+.favs {
+  border-radius: 30px;
+  background: rgb(128, 216, 182);
+  width: 120px;
+  height: auto;
+}
+
+.filter-title {
+  margin-left: 1em;
+}
+
+input.checkbox {
+  height: 13px;
+  width: 13px;
+}
+
+label {
+  color: black;
+  font-variant: small-caps;
+}
+
+label {
+  cursor: default;
+}
+
+#searchbar {
+  font-variant-caps: petite-caps;
+  max-width: fit-content;
+}
+
+* {
+  outline: none;
+}
+
