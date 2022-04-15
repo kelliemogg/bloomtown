@@ -8,7 +8,6 @@ html,
 body
 {
     height: 100vh;
-    font-family: 'Poppins';
 }
 
 .webgl
@@ -17,4 +16,11 @@ body
     top: 0;
     left: 0;
     outline: none;
+}
+
+h1 {
+    font-size: 1.5em;
+    text-align: center;
+    color: rgb(238, 15, 219);
+    text-shadow: 0 0 0.5em #000;
 }
