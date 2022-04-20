@@ -39,7 +39,6 @@ const create = async (user_id, name, building_num, street, city, state, country,
  */
 
 const findAll = async () =>{
-    console.log(`dis from garden model`)
     const query = `MATCH (g:Garden) RETURN (g)`
     const result = await session.run(query)
     return result
