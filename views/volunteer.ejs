@@ -68,12 +68,14 @@
           <a href="#"><i class="icon ion-social-linkedin"></i></a>
         </div>
       </div>
-      <div class="col" style="height: 194px;background: #ffffff;">
+      <div class="col" style="background: #ffffff;">
         <div id="filters">
 
           <div class="garden">
             <legend>Garden</legend>
+            <label>Garden</label>
             <select id="garden">
+              <option></option>
               <% for (let j=0; j < data.garden_result.length; j++) { %>
                 <option>
                   <%= data.garden_result[j].properties.name %>
@@ -93,10 +95,10 @@
               <div class="state_input">
                 <input id="state_input" type="text" value="" id="state" />
               </div>
-              <div><label>Zipcode</label></div>
+              <!-- <div><label>Zipcode</label></div>
               <div class="zipcode_input">
                 <input id="zipcode_input" type="text" value="" id="zipcode" />
-              </div>
+              </div> -->
             </div>
           </div>
 
@@ -128,41 +130,40 @@
         </div>
 
         <div class="submit">
-          <input id="submit" type="button" value="submit" onclick="filterTasks()"/>
+          <input id="submit" type="button" value="submit" onclick="filterTasks()" />
         </div>
-
-      </div>
-      <table id="example" class="table res-table table-striped table-bordered" cellspacing="0" width="100%">
-        <thead>
-          <tr>
-            <th scope="col">Task</th>
-            <th scope="col">Garden</th>
-            <th scope="col">Address</th>
-            <th scope="col">Deadline</th>
-            <th scope="col">Status</th>
-            <% for (let i=0; i < data.task_result.length; i++) { %>
-          <tr class="task_data">
-            <td>
-              <%= data.task_result[i][0].properties.description %>
-            </td>
-            <td>
-              <%= data.task_result[i][1].properties.name %>
-            </td>
-            <td>
-              <%= `${data.task_result[i][1].properties.city}, ${data.task_result[i][1].properties.state}`%>
-            </td>
-            <td>
-              <%= data.task_result[i][0].properties.due_date %>
-            </td>
-            <td>
-              <%= data.task_result[i][0].properties.status %>
-            </td>
-          </tr>
-          <% }; %>
+        <table id="example" class="table res-table table-striped table-bordered" cellspacing="0" width="100%">
+          <thead>
+            <tr>
+              <th scope="col">Task</th>
+              <th scope="col">Garden</th>
+              <th scope="col">Address</th>
+              <th scope="col">Deadline</th>
+              <th scope="col">Status</th>
+              <% for (let i=0; i < data.task_result.length; i++) { %>
+            <tr class="task_data">
+              <td>
+                <%= data.task_result[i][0].properties.description %>
+              </td>
+              <td>
+                <%= data.task_result[i][1].properties.name %>
+              </td>
+              <td>
+                <%= `${data.task_result[i][1].properties.city}, ${data.task_result[i][1].properties.state}`%>
+              </td>
+              <td>
+                <%= data.task_result[i][0].properties.due_date %>
+              </td>
+              <td>
+                <%= data.task_result[i][0].properties.status %>
+              </td>
             </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
+            <% }; %>
+              </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
     </div>
   </div>
   <script src="assets/js/jquery.min.js"></script>
@@ -178,12 +179,12 @@
   <script>
     function filterTasks() {
       const rows = document.getElementsByClassName("task_data")
-      const garden = document.getElementById("garden").value.toLowerCase()
-      const zipcode = document.getElementById("zipcode_input").value
-      const city = document.getElementById("city_input").value.toLowerCase()
-      const state = document.getElementById("state_input").value.toLowerCase()
+      const garden_input = document.getElementById("garden").value.toLowerCase()
+      // const zipcode_input = document.getElementById("zipcode_input").value
+      const city_input = document.getElementById("city_input").value.toLowerCase()
+      const state_input = document.getElementById("state_input").value.toLowerCase()
 
-      const status = (function () {
+      const status_input = (function () {
         const radio = document.getElementsByClassName("radio");
 
         for (i = 0; i < radio.length; i++) {
@@ -192,35 +193,43 @@
         }
       })()
 
-      console.log(rows)
-      console.log(garden)
-      console.log(zipcode)
-      console.log(city)
-      console.log(state)
-      console.log(status)
-
       for (i = 0; i < rows.length; i++) {
+        const rows = document.getElementsByClassName("task_data")
+        const garden_row = rows[i].children[1].innerHTML.toLowerCase().trim()
+        const location_row = rows[i].children[2].innerHTML.toLowerCase().split(",")
+        const city_row = location_row[0].trim()
+        const state_row = location_row[1].trim()
+        const status_row = rows[i].children[4].innerHTML.toLowerCase().trim()
+
         rows[i].style.display = ''
 
-        if (garden.length > 0) {
-          console.log("Testing: " + rows[i].children[1].innerHTML.toLowerCase() + " != " + garden)
-          console.log("result: " + (rows[i].children[1].innerHTML.toLowerCase() != (garden)))
-          if (rows[i].children[1].innerHTML.toLowerCase() != garden) {
-            console.log("Hiding1.")
+        console.log(city_row + " : " + state_row)
+
+        if (garden_input.length > 0) {
+          if (garden_row != garden_input) {
             rows[i].style.display = "none"
           }
         }
 
-        if (status != "all") {
-          const cell = rows[i].children[4].innerHTML.toLowerCase()
-          if (status == "current") {
-            if (cell != "open" && cell != "claimed") {
-              console.log("Hiding2.")
+        if (city_input.length > 0) {
+          if (city_row != city_input) {
+            rows[i].style.display = "none"
+          }
+        }
+
+        if (state_input.length > 0) {
+          if (state_row != state_input) {
+            rows[i].style.display = "none"
+          }
+        }
+
+        if (status_input != "all") {
+          if (status_input == "current") {
+            if (status_row != "open" && status_row != "claimed") {
               rows[i].style.display = "none"
             }
           } else {
-            if (cell != status) {
-              console.log("Hiding3.")
+            if (status_row != status_input) {
               rows[i].style.display = "none"
             }
           }
