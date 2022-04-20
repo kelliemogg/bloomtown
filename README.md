@@ -5,8 +5,9 @@
 1. [The Story](#the-story)
 2. [About the App](#about-the-app)
     1. [Website](#website)
-    2. [ARVR](#arvr)
-    3. [Graph Database](#graph-database)
+    2. [API](#api)
+    3. [ARVR](#arvr)
+    4. [Graph Database](#graph-database)
 9998. [Tech Stack](#tech-stack)
 9999. [Refrences](#refrences)
 10000. [Authors](#authors)
@@ -36,6 +37,10 @@ Create simple, effective tools to manage various forms of community garden tasks
 ### Website
 
 How we constructed the best website.
+
+### API
+
+See full documentaion for API [Here](https://github.com/kelliemogg/bloomtown/blob/master/src/api/v0/README.md "Check it out!").
 
 ### ARVR
 
