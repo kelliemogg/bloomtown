@@ -69,69 +69,54 @@
         </div>
       </div>
       <div class="col" style="background: #ffffff;">
-        <div id="filters">
-
-          <div class="garden">
-            <legend>Garden</legend>
-            <label>Garden</label>
-            <select id="garden">
-              <option></option>
-              <% for (let j=0; j < data.garden_result.length; j++) { %>
-                <option>
-                  <%= data.garden_result[j].properties.name %>
-                </option>
-                <% } %>
-            </select>
+        <form id="searchtasks">
+          <label>Garden</label>
+          <select id="garden">
+            <option value="">-- Select Garden --</option>
+            <% for (let j=0; j < data.garden_result.length; j++) { %>
+              <option value=<%=data.garden_result[j].properties.name %>>
+                <%= data.garden_result[j].properties.name %>
+              </option>
+              <% } %>
+          </select>
+          <div><label>City</label></div>
+          <div class="city_input">
+            <input id="city_input" type="text" value="" id="city" />
+          </div>
+          <div><label>State</label></div>
+          <div class="state_input">
+            <input id="state_input" type="text" value="" id="state" />
+          </div>
+          <div><label>Zipcode</label></div>
+          <div class="zipcode_input">
+            <input id="zipcode_input" type="text" value="" id="zipcode" />
           </div>
 
-          <div class="location">
-            <legend><br>Location</legend>
-            <div>
-              <div><label>City</label></div>
-              <div class="city_input">
-                <input id="city_input" type="text" value="" id="city" />
-              </div>
-              <div><label>State</label></div>
-              <div class="state_input">
-                <input id="state_input" type="text" value="" id="state" />
-              </div>
-              <!-- <div><label>Zipcode</label></div>
-              <div class="zipcode_input">
-                <input id="zipcode_input" type="text" value="" id="zipcode" />
-              </div> -->
-            </div>
+          <div>
+            <input class="radio" type="radio" name="status" value="all" checked />
+            <label>All</label>
+          </div>
+          <div>
+            <input class="radio" type="radio" name="status" value="open" />
+            <label>Open</label>
+          </div>
+          <div>
+            <input class="radio" type="radio" name="status" value="current" />
+            <label>Current</label>
+          </div>
+          <div>
+            <input class="radio" type="radio" name="status" value="claimed" />
+            <label>Claimed</label>
+          </div>
+          <div>
+            <input class="radio" type="radio" name="status" value="complete" />
+            <label>Complete</label>
           </div>
 
-          <div class="status">
-            <legend><br>Status</legend>
-            <div id="status">
-              <div>
-                <input class="radio" type="radio" name="status" value="all" checked />
-                <label>All</label>
-              </div>
-              <div>
-                <input class="radio" type="radio" name="status" value="open" />
-                <label>Open</label>
-              </div>
-              <div>
-                <input class="radio" type="radio" name="status" value="current" />
-                <label>Current</label>
-              </div>
-              <div>
-                <input class="radio" type="radio" name="status" value="claimed" />
-                <label>Claimed</label>
-              </div>
-              <div>
-                <input class="radio" type="radio" name="status" value="complete" />
-                <label>Complete</label>
-              </div>
-            </div>
-          </div>
-        </div>
+          <input id="submit" type="button" form="searchtasks" value="submit" onclick="filterTasks()" />
 
-        <div class="submit">
-          <input id="submit" type="button" value="submit" onclick="filterTasks()" />
-        </div>
+        </form>
+
         <table id="example" class="table res-table table-striped table-bordered" cellspacing="0" width="100%">
           <thead>
             <tr>
@@ -141,6 +126,8 @@
               <th scope="col">Deadline</th>
               <th scope="col">Status</th>
               <% for (let i=0; i < data.task_result.length; i++) { %>
+          </thead>
+          <tbody>
             <tr class="task_data">
               <td>
                 <%= data.task_result[i][0].properties.description %>
@@ -149,7 +136,8 @@
                 <%= data.task_result[i][1].properties.name %>
               </td>
               <td>
-                <%= `${data.task_result[i][1].properties.city}, ${data.task_result[i][1].properties.state}`%>
+                <%= `${data.task_result[i][1].properties.city}, ${data.task_result[i][1].properties.state},
+                  ${data.task_result[i][1].properties.zip}`%>
               </td>
               <td>
                 <%= data.task_result[i][0].properties.due_date %>
@@ -157,12 +145,11 @@
               <td>
                 <%= data.task_result[i][0].properties.status %>
               </td>
+              <% }; %>
             </tr>
-            <% }; %>
-              </tr>
-          </thead>
-          <tbody></tbody>
+          </tbody>
         </table>
+
       </div>
     </div>
   </div>
@@ -177,10 +164,11 @@
   <script src="assets/js/jquery-3.6.0.min.js"></script>
   <script src="assets/js/vertical-navbar-with-menu-and-social-menu.js"></script>
   <script>
+    // Embedded due to conflict between ejs and js
     function filterTasks() {
       const rows = document.getElementsByClassName("task_data")
       const garden_input = document.getElementById("garden").value.toLowerCase()
-      // const zipcode_input = document.getElementById("zipcode_input").value
+      const zipcode_input = document.getElementById("zipcode_input").value
       const city_input = document.getElementById("city_input").value.toLowerCase()
       const state_input = document.getElementById("state_input").value.toLowerCase()
 
@@ -199,12 +187,13 @@
         const location_row = rows[i].children[2].innerHTML.toLowerCase().split(",")
         const city_row = location_row[0].trim()
         const state_row = location_row[1].trim()
+        const zipcode_row = location_row[2].trim()
         const status_row = rows[i].children[4].innerHTML.toLowerCase().trim()
 
+        // Show all rows.
         rows[i].style.display = ''
 
-        console.log(city_row + " : " + state_row)
-
+        // Hide rows that do not match filter criteria.
         if (garden_input.length > 0) {
           if (garden_row != garden_input) {
             rows[i].style.display = "none"
@@ -219,6 +208,12 @@
 
         if (state_input.length > 0) {
           if (state_row != state_input) {
+            rows[i].style.display = "none"
+          }
+        }
+
+        if (zipcode_input.length > 0) {
+          if (zipcode_row != zipcode_input) {
             rows[i].style.display = "none"
           }
         }

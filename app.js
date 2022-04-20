@@ -3,6 +3,7 @@ import user_router from './src/api/v0/routes/users'
 import task_router from './src/api/v0/routes/tasks'
 import garden_router from './src/api/v0/routes/gardens'
 import relationship_router from './src/api/v0/routes/reationships'
+import leader_router from './src/webapp/routes/leader'
 import volunteer_router from './src/webapp/routes/volunteer'
 const express = require('express')
 const app = express()
@@ -43,6 +44,7 @@ app.use('/api/garden', garden_router)
 app.use('/api', relationship_router)
 
 // Webapp routes
+app.use('/leader', leader_router)
 app.use('/volunteer', volunteer_router)
 
 
