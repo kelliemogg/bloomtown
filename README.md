@@ -5,8 +5,9 @@
 1. [The Story](#the-story)
 2. [About the App](#about-the-app)
     1. [Website](#website)
-    2. [ARVR](#arvr)
-    3. [Graph Database](#graph-database)
+    2. [API](#api)
+    3. [ARVR](#arvr)
+    4. [Graph Database](#graph-database)
 9998. [Tech Stack](#tech-stack)
 9999. [Refrences](#refrences)
 10000. [Authors](#authors)
@@ -37,6 +38,10 @@ Create simple, effective tools to manage various forms of community garden tasks
 
 How we constructed the best website.
 
+### API
+
+See full documentaion for API [Here](https://github.com/kelliemogg/bloomtown/blob/master/src/api/v0/README.md "Check it out!").
+
 ### ARVR
 
 Highlights the lovely WebVR stuff.
@@ -65,6 +70,11 @@ Intresting stuff concerning Noe4j and our beloved data model.
 
 * [Neo4j & Cypher](https://neo4j.com/docs/ "Neo4j Documentation")
 * [Session Management](https://www.section.io/engineering-education/session-management-in-nodejs-using-expressjs-and-express-session/ "Session Management in Node.js using ExpressJS and Express Session")
+* [EJS](https://ejs.co/ "EJS offical documentaion")
+* [Title](url "Hover Text")
+* [Title](url "Hover Text")
+* [Title](url "Hover Text")
+* [Title](url "Hover Text")
 * [Title](url "Hover Text")
 
 [Back to top](#welcome-to-bloomtown)

@@ -4,40 +4,40 @@ The protype version of the bloomtown api creates endpoints for the users, tasks,
 
 ## Routes & Requests
 
-| Route | Endpoints | Request type |Description|
-|:---|:---|:---:|:---|
-| [api/ ](https://github.com/kelliemogg/bloomtown/blob/master/src/api/v0/routes/relationships.js "View code for route") | | | Routes for handeling relationships between users, tasks, and gardens. |
-| | /relationship | POST | Creates a relationship between 2 entaties represented by "a" and "b". Passing "a_id" and "b_id" as the id's of the two objects and "type" as the lable of the relationship you wish to create. |
-| | | GET | Returns information about the relationships between 2 objects, represented as "a" and "b". Achieved by passing "a_id' and "b_id" as the id's of the objects in the body of the request. |
-| | | DELETE | Deletes a relationship between 2 objects. The two objects are indicated by passing "a_id" and "b_id" in the body of the request. The lable of the relationship should be indicated by "type" in the body of request as well. |
-| | /leaders | GET | Returns all leaders and the gardens they lead.|
-|[api/users or api/user](https://github.com/kelliemogg/bloomtown/blob/master/src/api/v0/routes/users.js "View code for route")| | | Route that handles all information related to users. |
-| | / | POST | Create a new user by passing an email, password, name, role in the body of the request. |
-| | /all | GET | Returns all users. | 
-| | /id/{id} | GET | Returns the information of the user with the given id. |
-| | | PATCH | Updates the info of the user based on a "key" and "value" passed in the body of the request. |
-| | | DELETE | Deletes the user with the given id and all relationships associated with them. |
-| | /id/{id}/leads | POST | Creates a new garden and corespoding "Leads" relationship with the user with the given id. Must be passed name, building_num, street, city, state, country, and zip in the body of the request. |
-| | | GET | Returns all gardens the user "Leads". |
-| | /id/{id}/favorites | GET | Returns all gardens "Liked" by the user with the given id. |
-| | /id/{id}/favorites/tasks | GET | Returns all tasks associated with the gardens "Liked" by the user with the given id. |
-| | /id/{id}/favorites/tasks/{status} | GET | Returns all tasks with the coresponding statu associated with the gardens "Liked" by the user with the given id. "open" returns all open tasks, "claimed" returns all tasks claimed but not completed by users, "current" reuturns all open and claimed tasks, and "complete" returns all completed tasks. Any other value will return tasks regardless of status. |
-| | /id/{id}/tasks | GET | Returns all tasks claimed by the user with the given id. |
-| | /id/{id}/tasks/{status} | GET | Returns all tasks with the coresponding status associated with the gardens "Liked" by the user with the given id. "open" returns all open tasks, "claimed" returns all tasks claimed but not completed by users, "current" reuturns all open and claimed tasks, and "complete" returns all completed tasks. Any other value will return tasks regardless of status. |
+| Route | Endpoints | Request type | Description | Paramater | Example |
+|:---|:---|:---:|:---|:---|:---|
+| [api/ ](https://github.com/kelliemogg/bloomtown/blob/master/src/api/v0/routes/relationships.js "View code for route") | | | Routes for handeling relationships between users, tasks, and gardens. | | |
+| | /relationship | POST | Creates a relationship between 2 entaties. | **a_id:** The id of the object the relationship originates from. **b_id:** The object the relationship points to. **type:** The cyper Label of the new relationship. | ``` http://bloom-town.herokuapp.com/api/relationship?a_id=17&b_id=21&type=Likes ```|
+| | | GET | Returns information about the relationships between 2 objects, represented as "a" and "b". | **a_id:** The id of the object the relationship originates from. **b_id:** The object the relationship points to. | ``` http://bloom-town.herokuapp.com/api/relationship?a_id=17&b_id=21 ``` |
+| | | DELETE | Deletes a relationship between 2 objects. | **a_id:** The id of the object the relationship originates from. **b_id:** The object the relationship points to. **type:** The cyper Label of the relationship. | ``` http://bloom-town.herokuapp.com/api/relationship?a_id=17&b_id=21&type=Likes ```
+| | /leaders | GET | Returns all leaders and the gardens they lead.| | ``` http://bloom-town.herokuapp.com/api/leaders ``` |
+|[api/users or api/user](https://github.com/kelliemogg/bloomtown/blob/master/src/api/v0/routes/users.js "View code for route")| | | Route that handles all information related to users. | | |
+| | / | POST | Create a new user. | **email:** Email address of the new user. **password:** The users password. **name:** The username for the new user. **role:** The role of the new user, either community| ``` http://bloom-town.herokuapp.com/api/user  ``` |
+| | /all | GET | Returns all users. | | ``` http://bloom-town.herokuapp.com/api/users/all ``` |
+| | /id/{id} | GET | Returns the information of the user with the given id. | **id:** The id of the user. | ``` http://bloom-town.herokuapp.com/api/user/14 ```
+| | | PATCH | Updates the info of the user based on a "key" and "value" passed in the body of the request. | **id:** The id of the user. **key:** | ``` http://bloom-town.herokuapp.com/api/user/14?key=name&value=Hachi ``` |
+| | | DELETE | Deletes the user with the given id and all relationships associated with them. | **id:** The id of the user. | ``` http://bloom-town.herokuapp.com/api/user/14 ```
+| | /id/{id}/leads | POST | Creates a new garden and corespoding "Leads" relationship with the user with the given id |**name**: Name of the new garden. **building_num**: Building number of new garden's address. **street**: Street name of new garden's address. **city**: City of new garden's address. **state**: State of new garden's address. **country**: Country of new garden's address. **zip**: Zipcode of new garden's address.| ``` http://bloom-town.herokuapp.com/api/user/14/leads?name=Garden_name&building_num=12345&street=Fake&city=Nowhere&state=CA&country=USA&zip=99090  ```
+| | | GET | Returns all gardens the user "Leads". | **id:** The id of the user. | ``` http://bloom-town.herokuapp.com/api/user/14/leads  ``` |
+| | /id/{id}/favorites | GET | Returns all gardens "Liked" by the user with the given id. | **id:** The id of the user. | ``` http://bloom-town.herokuapp.com/api/user/14/favorites ``` |
+| | /id/{id}/favorites/tasks | GET | Returns all tasks associated with the gardens "Liked" by the user with the given id. | **id:** The id of the user. | ``` http://bloom-town.herokuapp.com/api/user/14/favorites/tasks ``` |
+| | /id/{id}/favorites/tasks/{status} | GET | Returns all tasks with the coresponding statu associated with the gardens "Liked" by the user with the given id. | **id:** The id of the user. **status:** "open" returns all open tasks, "claimed" returns all tasks claimed but not completed by users, "current" reuturns all open and claimed tasks, and "complete" returns all completed tasks. Any other value will return tasks regardless of status. | ``` http://bloom-town.herokuapp.com/api/user/14/favorites/tasks/open ``` |
+| | /id/{id}/tasks | GET | Returns all tasks claimed by the user with the given id. | **id:** The id of the user. | ``` http://bloom-town.herokuapp.com/api/user/14/tasks ``` |
+| | /id/{id}/tasks/{status} | GET | Returns all tasks with the coresponding status associated with the gardens "Liked" by the user with the given id.| **id:** The id of the user. **status:** "open" returns all open tasks, "claimed" returns all tasks claimed but not completed by users, "current" reuturns all open and claimed tasks, and "complete" returns all completed tasks. Any other value will return tasks regardless of status. | ``` http://bloom-town.herokuapp.com/api/user/14/tasks/complete ``` |
 | [api/gardens or api/garden](https://github.com/kelliemogg/bloomtown/blob/master/src/api/v0/routes/gardens.js "View code for route") | | | Route that handles all information related to users. |
-| | /all | GET | Returns all gardens. |
-| | /id/{id} | GET | Returns the information of the garden with the given id. |
-| | | PATCH | Updates the garden with the given id. Takes "key" and "value" arguemnts from the body of the request to update garden paramaters. |
-| | | DELETE | Deletes the garden with the given id. |
-| | /id/{id}/tasks | POST | Creates a task with coresponding "Locatted" relationship with the garden of the given id. Takes "description" and "due_date" from the request body to create the new task. |
-| | | GET | Returns all tasks associated with the garden. |
-| | /id/{id}/tasks/{status} | GET | Returns all tasks with the coresponding status associated with the garden with the given id. "open" returns all open tasks, "claimed" returns all tasks claimed but not completed by users, "current" reuturns all open and claimed tasks, and "complete" returns all completed tasks. Any other value will return tasks regardless of status. |
-| | /id/{id}/leader | GET | Returns the leader of the garden.|
-| | /location/{location_type}/{location_value} | GET | Returns all of the gardens filtered by city, state, zipcode, or country. |
+| | /all | GET | Returns all gardens. | | ``` http://bloom-town.herokuapp.com/api/garden/all ``` |
+| | /id/{id} | GET | Returns the information of the garden with the given id. | **id:** the id of the garden. | ``` http://bloom-town.herokuapp.com/api/garden/id/4 ``` |
+| | | PATCH | Updates the garden with the given id. Takes "key" and "value" arguemnts from the body of the request to update garden paramaters. | **id:** The id of the garden. **key:** The paramater of the garden to update. **value:** The new value to update the garden's paramaters too. | ``` http://bloom-town.herokuapp.com/api/garden/id/4?key=name&value=Greentown ``` |
+| | | DELETE | Deletes the garden with the given id. | **id:** The id of the garden. | ``` http://bloom-town.herokuapp.com/api/garden/id/4 ``` |
+| | /id/{id}/tasks | POST | Creates a task with coresponding "Locatted" relationship with the garden of the given id. | **id:** The id of the garden. **description:** The description of the new task. **due_date:** Date the task is due. | ``` http://bloom-town.herokuapp.com/api/garden/id/4/tasks?description=Weeding&due_date=5/11/2022 ``` |
+| | | GET | Returns all tasks associated with the garden. | **id:** The id of the garden. | ``` http://bloom-town.herokuapp.com/api/garden/id/4/tasks ``` |
+| | /id/{id}/tasks/{status} | GET | Returns all tasks with the coresponding status associated with the garden with the given id. "open" returns all open tasks, "claimed" returns all tasks claimed but not completed by users, "current" reuturns all open and claimed tasks, and "complete" returns all completed tasks. Any other value will return tasks regardless of status. | **id:** The id of the garden. **status:** "open" returns all open tasks, "claimed" returns all tasks claimed but not completed by users, "current" reuturns all open and claimed tasks, and "complete" returns all completed tasks. Any other value will return tasks regardless of status. | ``` http://bloom-town.herokuapp.com/api/garden/id/4/tasks/current ``` |
+| | /id/{id}/leader | GET | Returns the leader of the garden.| **id:** The id of the garden. | ``` http://bloom-town.herokuapp.com/api/garden/id/4/leader ``` |
+| | /location/{location_type}/{location_value} | GET | Returns all of the gardens filtered by city, state, zipcode, or country. | **location_type:** The type of location, "city', "state", "zipcode", or "country". **location_value:** The value of the location to filter by. | ``` http://bloom-town.herokuapp.com/api/garden/city/tulsa ``` |
 | [api/tasks or api/task](https://github.com/kelliemogg/bloomtown/blob/master/src/api/v0/routes/tasks.js "View code for route") | | | Route that handles task related opperations. |
-| | /all | GET | Returns all tasks. |
-| | /id/{id} | GET | Returns the information of a task with the given id. |
-| | | PATCH | Updates the task with the given id using "key" and "value" from the request body. |
-| | | DELETE | Deletes the task with the given id. |
-| | /location/{location_type}/{location_value} | GET | Returns all tasks filtered by city, state, zipcode or country. |
-| | /status/{status} | GET | Returns tasks filtered by their status. "open" returns all open tasks, "claimed" returns all tasks claimed but not completed by users, "current" reuturns all open and claimed tasks, and "complete" returns all completed tasks. Any other value will return tasks regardless of status.  |
+| | /all | GET | Returns all tasks. | | ``` http://bloom-town.herokuapp.com/api/tasks/all ``` |
+| | /id/{id} | GET | Returns the information of a task with the given id. | **id:** The id of the task. | ``` http://bloom-town.herokuapp.com/api/tasks/id/93 ``` |
+| | | PATCH | Updates the task with the given id using "key" and "value" from the request body. | **id:** The id of the task. **key:** The paramater of the garden to update. **value:** The new value to update the garden's paramaters too. | ``` http://bloom-town.herokuapp.com/api/tasks/id/93?key=description&value=Watering ``` |
+| | | DELETE | Deletes the task with the given id. | **id:** The id of the task. | ``` http://bloom-town.herokuapp.com/api/tasks/id/93 ``` |
+| | /location/{location_type}/{location_value} | GET | Returns all tasks filtered by city, state, zipcode or country. | **location_type:** The type of location, "city', "state", "zipcode", or "country". **location_value:** The value of the location to filter by. | ``` http://bloom-town.herokuapp.com/api/tasks/location/state/OK ```|
+| | /status/{status} | GET | Returns tasks filtered by their status.| **status:** "open" returns all open tasks, "claimed" returns all tasks claimed but not completed by users, "current" reuturns all open and claimed tasks, and "complete" returns all completed tasks. Any other value will return tasks regardless of status. | ``` http://bloom-town.herokuapp.com/api/tasks/status/claimed ```

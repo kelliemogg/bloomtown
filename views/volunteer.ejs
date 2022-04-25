@@ -2,128 +2,168 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Home - Bloom Town</title>
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cabin:700">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quicksand">
-    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/fonts/ionicons.min.css">
-    <link rel="stylesheet" href="assets/fonts/material-icons.min.css">
-    <link rel="stylesheet" href="assets/css/Data-Table.css">
-    <link rel="stylesheet" href="assets/css/Filter.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css">
-    <link rel="stylesheet" href="https://unpkg.com/@bootstrapstudio/bootstrap-better-nav/dist/bootstrap-better-nav.min.css">
-    <link rel="stylesheet" href="assets/css/OcOrato---Login-form.css">
-    <link rel="stylesheet" href="assets/css/Profile-with-data-and-skills.css">
-    <link rel="stylesheet" href="assets/css/vertical-navbar-with-menu-and-social-menu.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <title>Home - Bloom Town</title>
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cabin:700">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quicksand">
+  <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+  <link rel="stylesheet" href="assets/fonts/ionicons.min.css">
+  <link rel="stylesheet" href="assets/fonts/material-icons.min.css">
+  <link rel="stylesheet" href="assets/css/Data-Table.css">
+  <link rel="stylesheet" href="assets/css/Filter.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css">
+  <link rel="stylesheet"
+    href="https://unpkg.com/@bootstrapstudio/bootstrap-better-nav/dist/bootstrap-better-nav.min.css">
+  <link rel="stylesheet" href="assets/css/OcOrato---Login-form.css">
+  <link rel="stylesheet" href="assets/css/Profile-with-data-and-skills.css">
+  <link rel="stylesheet" href="assets/css/vertical-navbar-with-menu-and-social-menu.css">
 </head>
 
 <body id="page-top" data-bs-spy="scroll" data-bs-target="#mainNav" data-bs-offset="77" style="height: 829px;">
-    <div class="intro-body" style="background: #ffffff;">
-        <div class="row">
-            <div class="col-lg-3 d-flex flex-column justify-content-between px-0" id="header">		<nav class="navbar navbar-expand-lg navbar-light d-flex flex-column px-0">
-			<div id="m-navbar-brand" class="text-center"><br>
-                 <a class="navbar-brand" href="/"><h2 class="h3">BloomTown</h2></a>
-			  <a class="navbar-brand m-0 p-2" href="profile.jpg" data-toggle="lightbox">
-					<img src="assets/img/data.png" alt="" class="rounded-circle img-fluid mx-auto mb-3">
-					<h2 class="h5">Carlos Esquivel</h2>
-					<h1 class="h6">Full Stack Web <br>Developer + Plant Daddy</h1>
-			  </a>
-			  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-			    <span class="navbar-toggler-icon"></span>
-			  </button>
-			</div>
-			<div id="m-navbar-menu" class="w-100">
-			  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-			    <ul class="navbar-nav d-flex flex-column w-100">
-			      <li class="nav-item active">
-			        <a class="nav-link font-weight-bold" href="#">About</a>
-			      </li>
-			      <li class="nav-item">
-			        <a class="nav-link font-weight-bold" href="#">Work</a>
-			      </li>
-			      <li class="nav-item">
-			        <a class="nav-link font-weight-bold" href="#">Portfolio</a>
-			      </li>
-			      <li class="nav-item">
-			        <a class="nav-link font-weight-bold" href="#">Contact</a>
-			      </li>
-			    </ul>
-			  </div>	
-			</div>
-		</nav><div class="social-icons"><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i class="icon ion-social-github"></i></a><a href="#"><i class="icon ion-social-linkedin"></i></a></div></div>
-            <div class="col" style="height: 194px;background: #ffffff;"><div class="filter">
-    <form id="searchtasks">
-        <select>
-            <option value="all">Select Garden</option>
-            <option value="mine">My Gardens</option>
-        </select>
-        <input id="zipSearchbar" placeholder="enter zip code">
-    <input id="citySearchbar" placeholder="enter city/state"><br>
-        <select>
-        <option value="alltasks">All Tasks</option>
-        <option value="available">Available Tasks</option>
-        <option value="progress">In Progress Tasks</option>
-        </select>
-    <button type="Search" form="searchtasks" value="search">Search</button>
-    </form>
-</div><table id="example" class="table res-table table-striped table-bordered" cellspacing="0" width="100%">
-        <thead>
-            <tr>
-                <th>Task</th>
-                <th>Garden</th>
-                <th>City/State</th>
-                <th>Deadline</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td data-th="description">Harvest Sunchokes</td>
-                <td data-th="garden">Octopus's Garden</td>
-                <td data-th="location">Tulsa, OK</td>
-                <td data-th="deadline">05/01/2022</td>
-                <td data-th="status">Available</td>
-            </tr>
-            <tr>
-                <td data-th="description">Harvest Sunchokes</td>
-                <td data-th="garden">Octopus's Garden</td>
-                <td data-th="location">Tulsa, OK</td>
-                <td data-th="deadline">05/01/2022</td>
-                <td data-th="status">Available</td>
-            </tr>
-            <tr>
-                <td data-th="description">Harvest Sunchokes</td>
-                <td data-th="garden">Octopus's Garden</td>
-                <td data-th="location">Tulsa, OK</td>
-                <td data-th="deadline">05/01/2022</td>
-                <td data-th="status">Available</td>
-            </tr>
-            <tr>
-                <td data-th="description">Harvest Sunchokes</td>
-                <td data-th="garden">Octopus's Garden</td>
-                <td data-th="location">Tulsa, OK</td>
-                <td data-th="deadline">05/01/2022</td>
-                <td data-th="status">Available</td>
-            </tr>
-        </tbody>
-    </table></div>
+  <div class="intro-body" style="background: #ffffff;">
+    <div class="row">
+      <div class="col-lg-3 d-flex flex-column justify-content-between px-0" id="header">
+        <nav class="navbar navbar-expand-lg navbar-light d-flex flex-column px-0">
+          <div id="m-navbar-brand" class="text-center"><br>
+            <a class="navbar-brand" href="/">
+              <h2 class="h3">BloomTown</h2>
+            </a>
+            <a class="navbar-brand m-0 p-2" href="profile.jpg" data-toggle="lightbox">
+              <img src="assets/img/data.png" alt="" class="rounded-circle img-fluid mx-auto mb-3">
+              <h2 class="h5">Carlos Esquival</h2>
+              <h1 class="h6">Full Stack Web <br>Developer + Plant Daddy</h1>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          </div>
+          <div id="m-navbar-menu" class="w-100">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav d-flex flex-column w-100">
+                <li class="nav-item active">
+                  <a class="nav-link font-weight-bold" href="#">About</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link font-weight-bold" href="#">Work</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link font-weight-bold" href="#">Portfolio</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link font-weight-bold" href="#">Contact</a>
+                </li>
+              </ul>
+            </div>
+        </nav>
+        <div class="social-icons">
+          <a href="#"><i class="icon ion-social-twitter"></i></a>
+          <a href="#"><i class="icon ion-social-facebook"></i></a>
+          <a href="#"><i class="icon ion-social-github"></i></a>
+          <a href="#"><i class="icon ion-social-linkedin"></i></a>
         </div>
+      </div>
+      <div class="col" style="background: #ffffff;">
+        <form id="searchtasks">
+          <label>Garden</label>
+          <select id="garden">
+            <option value="">-- Select Garden --</option>
+            <% for (let j=0; j < data.garden_result.length; j++) { %>
+              <option value=<%=data.garden_result[j].properties.name %>>
+                <%= data.garden_result[j].properties.name %>
+              </option>
+              <% } %>
+          </select>
+          <div><label>City</label></div>
+          <div class="city_input">
+            <input id="city_input" type="text" value="" id="city" />
+          </div>
+          <div><label>State</label></div>
+          <div class="state_input">
+            <input id="state_input" type="text" value="" id="state" />
+          </div>
+          <div><label>Zipcode</label></div>
+          <div class="zipcode_input">
+            <input id="zipcode_input" type="text" value="" id="zipcode" />
+          </div>
+
+          <div>
+            <input class="radio" type="radio" name="status" value="all" checked />
+            <label>All</label>
+          </div>
+          <div>
+            <input class="radio" type="radio" name="status" value="open" />
+            <label>Open</label>
+          </div>
+          <div>
+            <input class="radio" type="radio" name="status" value="current" />
+            <label>Current</label>
+          </div>
+          <div>
+            <input class="radio" type="radio" name="status" value="claimed" />
+            <label>Claimed</label>
+          </div>
+          <div>
+            <input class="radio" type="radio" name="status" value="complete" />
+            <label>Complete</label>
+          </div>
+
+          <input id="submit" type="button" form="searchtasks" value="submit" onclick="filterTasks()" />
+
+        </form>
+
+        <table id="example" class="table res-table table-striped table-bordered" cellspacing="0" width="100%">
+          <thead>
+            <tr>
+              <th scope="col">Task</th>
+              <th scope="col">Garden</th>
+              <th scope="col">Address</th>
+              <th scope="col">Deadline</th>
+              <th scope="col">Status</th>
+              <% for (let i=0; i < data.task_result.length; i++) { %>
+          </thead>
+          <tbody>
+            <tr class="task_data">
+              <td>
+                <%= data.task_result[i][0].properties.description %>
+              </td>
+              <td>
+                <%= data.task_result[i][1].properties.name %>
+              </td>
+              <td>
+                <%= `${data.task_result[i][1].properties.city}, ${data.task_result[i][1].properties.state},
+                  ${data.task_result[i][1].properties.zip}`%>
+              </td>
+              <td>
+                <%= data.task_result[i][0].properties.due_date %>
+              </td>
+              <td>
+                <%= data.task_result[i][0].properties.status %>
+              </td>
+              <% }; %>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
     </div>
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js" type="module"></script>
-    <script src="assets/js/grayscale.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.js"></script>
-    <script src="https://unpkg.com/@bootstrapstudio/bootstrap-better-nav/dist/bootstrap-better-nav.min.js"></script>
-    <script src="assets/js/jquery-3.6.0.min.js"></script>
-    <script src="assets/js/vertical-navbar-with-menu-and-social-menu.js"></script>
+  </div>
+  <script src="assets/js/jquery.min.js"></script>
+  <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js" type="module"></script>
+  <script src="assets/js/grayscale.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.js"></script>
+  <script src="https://unpkg.com/@bootstrapstudio/bootstrap-better-nav/dist/bootstrap-better-nav.min.js"></script>
+  <script src="assets/js/jquery-3.6.0.min.js"></script>
+  <script src="assets/js/vertical-navbar-with-menu-and-social-menu.js"></script>
+  <script> src="assets/js/filter_tasks.js"</script>
 </body>
 
 </html>

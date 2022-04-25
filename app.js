@@ -3,10 +3,12 @@ import user_router from './src/api/v0/routes/users'
 import task_router from './src/api/v0/routes/tasks'
 import garden_router from './src/api/v0/routes/gardens'
 import relationship_router from './src/api/v0/routes/reationships'
+import leader_router from './src/webapp/routes/leader'
+import volunteer_router from './src/webapp/routes/volunteer'
 const express = require('express')
 const app = express()
 const ejs = require('ejs')
-
+let PORT = process.env.PORT || 3000
 
 // CORS 
 app.use(function(req, res, next) {
@@ -21,13 +23,18 @@ app.use(express.static(__dirname + '/public/'));
 // Set view engine
 app.set('view engine', 'ejs')
 
-app.listen(process.env.PORT, () => {
-  console.log(`Application started and listening on port ${process.env.PORT}`);
+//Setup port for application
+app.listen(PORT, () => {
+  console.log(`Application started and listening on port ${PORT}`);
   });
 
-// Routers
+// Json
 app.use(express.json())
+
+// Enable body parsing
 app.use(express.urlencoded({extended:true}))
+
+// API routes
 app.use('/api/users', user_router)
 app.use('/api/user', user_router)
 app.use('/api/tasks', task_router)
@@ -35,6 +42,10 @@ app.use('/api/task', task_router)
 app.use('/api/gardens', garden_router)
 app.use('/api/garden', garden_router)
 app.use('/api', relationship_router)
+
+// Webapp routes
+app.use('/leader', leader_router)
+app.use('/volunteer', volunteer_router)
 
 
 // Static Files
@@ -51,7 +62,7 @@ app.get('/volunteer', (req, res) => {
   res.render('volunteer')
 });
 
-
+// Testing databse connection.
 (async() => {  
   const neo4j = require('neo4j-driver');
   const driver = neo4j.driver(
