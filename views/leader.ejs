@@ -387,7 +387,7 @@
         due_date: due_date
       }
 
-      $.post(("https://bloom-town.herokuapp.com/api/garden/id/" + garden_id + "/tasks"), data, function (status) {
+      $.post(("https://bloom-town.herokuapp.com/api/garden/id/" + garden_id + "/tasks"), data, function (data, status) {
         alert(status);
       })
     }
