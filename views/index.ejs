@@ -5,22 +5,24 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - BloomTown</title>
-</head>
-<script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
-<script src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>
-<script src="https://unpkg.com/aframe-gltf-helpers@0.0.5/dist/aframe-gltf-helpers.min.js"></script>
-<body class="three">
+    <!-- <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
+    <script src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>
+    <script src="https://unpkg.com/aframe-gltf-helpers@0.0.5/dist/aframe-gltf-helpers.min.js"></script>
+    <script src="https://unpkg.com/aframe-animation-component@^4.1.2/dist/aframe-animation-component.min.js"></script> -->
+    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-environment-component/dist/aframe-environment-component.min.js"></script></head>
+    <body class="three">
     <a-scene>
         <a-assets>
             <a-asset-item id="scene" src="assets/models/scene.gltf"></a-asset-item>
         </a-assets>
-        <a-entity gltf-model="#scene" position="0 0.5 -3"></a-entity>
-        <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
-        <a-sky color="#81E4DA"></a-sky>
+        <a-entity gltf-model="#scene"
+        animation="property: position;
+        from: 0 0.5 -3; to: 0 0.6 -3; 
+        dir: alternate; 
+        dur: 2000; loop: true"></a-entity>
+        <a-entity environment="preset: forest"></a-entity>
       </a-scene>
-    <header>
-        <h1> Hi it's Kellie</h1>
-    </header>
 
 </body>
 </html>
