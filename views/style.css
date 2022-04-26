@@ -29,6 +29,7 @@ main {
 
   header {
     background: var(--dark-bg);
+    height: 100vh;
     grid-column: 2 / span 5;
     font-size: 2.5rem;
     padding: 2rem;

@@ -2,6 +2,7 @@ import * as THREE from 'https://unpkg.com/three@0.126.1/build/three.module.js';
 
 import { OrbitControls } from 'https://unpkg.com/three@0.126.1/examples/jsm/controls/OrbitControls.js';
 import { VRButton } from 'https://unpkg.com/three@0.126.1/examples/jsm/webxr/VRButton.js';
+import { GLTFLoader } from 'https://unpkg.com/three@0.126.1/examples/jsm/loaders/GLTFLoader.js';
 
 // scene
 const scene = new THREE.Scene();
@@ -13,10 +14,54 @@ const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.inner
 const renderer = new THREE.WebGLRenderer({
 // select the DOM element to use
   canvas: document.querySelector('#bg'),
-})
-// Add the VRButton to the page
+  antialias: true,
+  alpha: true,
+  powerPreference: 'high-performance',
+});
+
+// Add the VR button to the page
+function main() {
+  const canvas = document.querySelector('#bg');
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+}
 document.body.appendChild( VRButton.createButton( renderer ) );
 renderer.xr.enabled = true;
+
+
+// add lighting to the scene
+const light = new THREE.PointLight(0xffffff, 1, 100);
+light.position.set(15, 15, 15);
+
+const ambientLight = new THREE.AmbientLight(0xffffff, 1);
+scene.add(light, ambientLight);
+
+const watercanLight = new THREE.DirectionalLight(0xffffff, 2);
+watercanLight.position.set(0, -.5, -3);
+watercanLight.target.position.set(.2, -.2, -1);
+scene.add(watercanLight);
+scene.add(watercanLight.target);
+
+
+// Adding Watering Can to the scene
+const loader = new GLTFLoader();
+loader.load( 'assets/models/watering_can.glb', function ( gltf ) {
+  gltf.scene.position.set(.3, -.4, -1.5);
+  gltf.scene.rotation.set(0, 80, 0);
+  scene.add( gltf.scene );
+}, undefined, function ( error) {
+  console.error( error );
+});
+
+// Adding the plant animation to the scene
+loader.load( 'assets/models/untitled.glb', function ( gltf ) {
+  gltf.scene.position.set(-.4, -.6, -1.5);
+  gltf.scene.scale.set(.5, .5, .5);
+  gltf.scene.rotation.set(0, 80, 0);
+  scene.add( gltf.scene );
+}, undefined, function ( error) {
+  console.error( error );
+});
+
 
 renderer.setPixelRatio (window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -25,17 +70,6 @@ camera.position.setZ(30);
 renderer.render (scene, camera);
 
 
-const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
-const material = new THREE.MeshStandardMaterial({ color: 0xff6347 });
-const torus = new THREE.Mesh(geometry, material);
-scene.add(torus);
-
-// add lighting to the scene
-const light = new THREE.PointLight(0xffffff, 1, 100);
-light.position.set(15, 15, 10);
-
-const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-scene.add(light, ambientLight);
 
 // orbit controls
 const controls = new OrbitControls(camera, renderer.domElement);
@@ -56,35 +90,21 @@ Array(200).fill().forEach(addStar);
 // add leaves to the bg scene
 // const fieldTexture = new THREE.TextureLoader().load('/assets/img/josh-calabrese-unsplash.jpg');
 // add close up leaf texture to the scene
-const fieldTexture = new THREE.TextureLoader().load('/assets/img/rohit-ranwa-unsplash.jpg');
-scene.background = fieldTexture;
+//const fieldTexture = new THREE.TextureLoader().load('/assets/img/rohit-ranwa-unsplash.jpg');
+//scene.background = fieldTexture;
+// Add hex color to the background scene
+scene.background = new THREE.Color(0xAFE3C0)  // 0xAFE3C0
 
-
-// Avatar
-const avatar = new THREE.TextureLoader().load('/assets/img/girl-with-plant.png');
-const gil = new THREE.Mesh(new THREE.BoxGeometry(2, 2, 2), new THREE.MeshBasicMaterial({ map: avatar }));
-
-scene.add(gil);
-// Tomato and Girl
-const tomatoTexture = new THREE.TextureLoader().load('/assets/img/tomato.jpg');
-const tomato = new THREE.Mesh(new THREE.BoxGeometry(4, 4, 4), new THREE.MeshBasicMaterial({ map: tomatoTexture }));
-scene.add(tomato);
-
-tomato.position.z = 30;
-tomato.position.setX(-10);
-
-gil.position.z = -5;
-gil.position.x = 2;
 
 // Scroll Animation
 function moveCamera() {
     const t = document.body.getBoundingClientRect().top;
-    tomato.rotation.x += 0.05;
-    tomato.rotation.y += 0.075;
-    tomato.rotation.z += 0.05;
+    // tomato.rotation.x += 0.05;
+    // tomato.rotation.y += 0.075;
+    // tomato.rotation.z += 0.05;
   
-    gil.rotation.y += 0.01;
-    gil.rotation.z += 0.01;
+    // gil.rotation.y += 0.01;
+    // gil.rotation.z += 0.01;
   
     camera.position.z = t * -0.01;
     camera.position.x = t * -0.0002;
@@ -99,12 +119,6 @@ function moveCamera() {
 
 renderer.setAnimationLoop (function () { 
 
-    torus.rotation.x += 0.01;
-    torus.rotation.y += 0.01;
-    torus.rotation.z += 0.01;
-
-    tomato.rotation.x += 0.005;
-    // controls.update();
 
   renderer.render(scene, camera);
 });
