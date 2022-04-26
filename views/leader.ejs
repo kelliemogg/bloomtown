@@ -387,7 +387,7 @@
         due_date: due_date
       }
 
-      $.post(("http://localhost:3000/api/garden/id/" + garden_id + "/tasks"), data, function (status) {
+      $.post(("https://bloom-town.herokuapp.com/api/garden/id/" + garden_id + "/tasks"), data, function (status) {
         alert(status);
       })
     }
@@ -411,7 +411,7 @@
         zip: zip
       }
 
-      $.post(("http://localhost:3000/api/user/id/" + user_id + "/leads"), data, function (data, status) {
+      $.post(("https://bloom-town.herokuapp.com/api/user/id/" + user_id + "/leads"), data, function (data, status) {
         alert(status);
         // alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
       })
