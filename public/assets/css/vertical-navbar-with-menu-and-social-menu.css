@@ -1,6 +1,6 @@
 .social-icons {
   color: #ffffff;
-  background-color: #42dca3;
+  background-color: #EE6055;
   text-align: center;
   padding: 0 0 20px;
 }
@@ -26,7 +26,7 @@
 
 @media (min-width: 992px) {
   #header {
-    background-color: #42dca3;
+    background-color: #EE6055;
     min-height: 100vh;
     position: relative;
   }
