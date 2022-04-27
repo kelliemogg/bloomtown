@@ -3,116 +3,127 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Home - Bloom Town</title>
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cabin:700">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quicksand">
-    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/fonts/ionicons.min.css">
-    <link rel="stylesheet" href="assets/fonts/material-icons.min.css">
-    <link rel="stylesheet" href="assets/css/Data-Table.css">
-    <link rel="stylesheet" href="assets/css/Filter.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css">
-    <link rel="stylesheet" href="https://unpkg.com/@bootstrapstudio/bootstrap-better-nav/dist/bootstrap-better-nav.min.css">
-    <link rel="stylesheet" href="assets/css/OcOrato---Login-form.css">
-    <link rel="stylesheet" href="assets/css/Profile-with-data-and-skills.css">
-    <link rel="stylesheet" href="assets/css/vertical-navbar-with-menu-and-social-menu.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - BloomTown</title>
+    <!-- <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
+    <script src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>
+    <script src="https://unpkg.com/aframe-animation-component@^4.1.2/dist/aframe-animation-component.min.js"></script> -->
+    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-troika-text/dist/aframe-troika-text.min.js"></script>
+    <script src="https://unpkg.com/aframe-gltf-helpers@0.0.5/dist/aframe-gltf-helpers.min.js"></script>
+    <script src="https://unpkg.com/aframe-environment-component/dist/aframe-environment-component.min.js"></script>
+<script>
+
+AFRAME.registerComponent('arrows', {
+            init: function(){
+                let el = this.el;
+                let self = this;
+                self.arrows = [];              
+                el.addEventListener("model-loaded", e =>{
+                    let tree3D = el.getObject3D('mesh');
+                    if (!tree3D){return;}    
+                  //console.log('tree3D', tree3D);
+                    tree3D.traverse(function(node){
+                        if (node.isMesh){   
+                          console.log(node);
+                          self.arrows.push(node);                          
+                          node.material = new THREE.MeshStandardMaterial({color: 0x33aa00});
+                        }
+                    });
+              });
+              
+              el.addEventListener('raycaster-intersected', e =>{  
+                self.raycaster = e.detail.el;
+                let intersection = self.raycaster.components.raycaster.getIntersection(el);
+                  console.log('click', intersection.object.name, self.mouseOverObject, 
+                            intersection.object.name != self.mouseOverObject );  
+                if (self.mouseOverObject != intersection.object.name){
+                  intersection.object.material.emissive = new THREE.Color(0xFFFF00);
+                  intersection.object.material.emissiveIntensity = 0.5; 
+                } else {
+                   intersection.object.material.emissive = new THREE.Color(0x000000);
+                  intersection.object.material.emissiveIntensity = 0.0; 
+                }                  
+                  self.mouseOverObject = intersection.object.name;
+              });
+              
+               el.addEventListener('raycaster-intersected-cleared', e =>{  
+                self.arrows.forEach(function(arrow){
+                   arrow.material.emissive = new THREE.Color(0x000000);
+                  arrow.material.emissiveIntensity = 0.0; 
+                });    
+                  self.mouseOverObject = null;
+              });
+              
+              el.addEventListener('click', function(){
+                console.log(self.mouseOverObject);
+                if(self.mouseOverObject === "Trunk_A"){
+                  //console.log('link');
+                  let leaderurl = 'https://bloom-town.herokuapp.com/leader';
+                  let volunteerurl = 'https://bloom-town.herokuapp.com/volunteer';
+                  if (id == "leader"){
+                      window.open(leaderurl);
+                    } else if (id == "volunteer"){
+                        window.open(volunteerurl);
+                    }
+                }
+              });
+            }
+        });
+
+</script>
 </head>
+    <body class="three">
+    <a-scene>
+        <a-assets>
+            <a-asset-item id="scene" src="assets/models/scene.gltf"></a-asset-item>
+            <a-asset-item id="arrow" src="assets/models/arrow.gltf"></a-asset-item>
+        </a-assets>
+        <a-entity id="mouseCursor" cursor="rayOrigin: mouse" raycaster="objects: .clickable"></a-entity>
+        <a-troika-text value="Welcome to BloomTown"
+            position="0 3 -4"
+            scale="4 4 4"
+            material="shader: flat; color: #ffffff; opacity: 0.5"
+            outline-color=" #ffffff;"></a-troika-text>
 
-<body id="page-top" data-bs-spy="scroll" data-bs-target="#mainNav" data-bs-offset="77">
-    <nav class="navbar navbar-light navbar-expand-md fixed-top" id="mainNav" style="background: #ffffff;">
-        <div class="container">
-            <div class="container-fluid">
-                <nav class="navbar navbar-light navbar-expand-md sticky-top bg-white" style="color: rgb(134,231,192);">
-                    <div class="container-fluid"><a class="navbar-brand" href="#" style="color: rgb(0,0,0);">BloomTown</a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-                        <div class="collapse navbar-collapse" id="navcol-1">
-                            <ul class="navbar-nav">
-                                <li class="nav-item"><a class="nav-link active" href="about" style="color: rgb(0,0,0);background: rgba(255,255,255,0);" target="_blank">About</a></li>
-                                <li class="nav-item" style="color: rgb(0,0,0);"><a class="nav-link" href="about" style="color: rgb(0,0,0);" target="_blank">Meet the Devs</a></li>
-                            </ul>
-                            <ul class="navbar-nav ms-auto">
-                                <li class="nav-item"><a class="nav-link active" href="#" style="background: rgba(255,255,255,0.77);"><button class="btn btn-outline-primary" type="button" data-bs-toggle="modal" data-bs-target="#signin">Log In</button></a></li>
-                                <li class="nav-item"><a class="nav-link active" href="#" style="background: rgba(255,255,255,0.81);"><button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#signup">Sign Up</button></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
-            </div>
-        </div>
-    </nav>
-    <header class="masthead" style="background: rgb(66,220,163);">
-        <div class="intro-body" style="background: #ffffff;"></div>
-    </header>
-    <div class="modal fade" role="dialog" tabindex="-1" id="signin">
-        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 style="color: rgb(0,0,0);">Sign In</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-group mb-3">
-                            <div class="input-group"><span class="text-primary input-group-text"><i class="fa fa-envelope-o"></i></span><input class="form-control" type="email" required="" placeholder="Email"></div>
-                        </div>
-                        <div class="form-group mb-3">
-                            <div class="input-group"><span class="text-primary input-group-text"><i class="fa fa-lock"></i></span><input class="form-control" type="password" required="" placeholder="Password"></div>
-                        </div>
-                        <div class="form-group mb-3"><button class="btn btn-primary btn-lg" style="width: 100%;" type="button">Log in</button></div>
-                    </form>
-                    <hr style="background-color: #bababa;">
-                    <p class="text-center" style="color: rgb(0,0,0);">Or&nbsp;<a class="text-decoration-none" href="#" style="color: rgb(0,0,0);">Forget password</a></p>
-                    <p class="text-center" style="color: rgb(0,0,0);">Don't have an account? <br>&nbsp;<a class="text-decoration-none" href="#" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#signin" style="color: rgb(0,0,0);">Sign Up</a></p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" role="dialog" tabindex="-1" id="signup">
-        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4>Sign Up Now</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="text-center"><button class="btn btn-primary text-start" style="width: 95%;" type="button"><i class="fa fa-facebook"></i>&nbsp; Continue with Facebook</button></div>
-                    <div class="text-center mt-2"><button class="btn btn-light text-start border-dark" style="width: 95%;" type="button"><i class="fa fa-google"></i>&nbsp; Continue with Google</button></div>
-                    <form class="mt-4" enctype="multipart/form-data" method="post">
-                        <div class="form-group mb-3">
-                            <div class="input-group"><span class="text-primary input-group-text"><i class="fa fa-user-o"></i></span><input class="form-control" type="text" required="" placeholder="Full Name"></div>
-                        </div>
-                        <div class="form-group mb-3">
-                            <div class="input-group"><span class="text-primary input-group-text"><i class="fa fa-envelope-o"></i></span><input class="form-control" type="email" required="" placeholder="Email"></div>
-                        </div>
-                        <div class="form-group mb-3">
-                            <div class="input-group"><span class="text-primary input-group-text" style="margin-bottom: 10px;">User Type</span></div>
-                            <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-2"><label class="form-check-label" for="formCheck-2" style="color: rgb(0,0,0);">Volunteer</label></div>
-                            <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-3"><label class="form-check-label" for="formCheck-3" style="color: rgb(0,0,0);">Garden Leader</label></div>
-                        </div>
-                        <div class="form-group mb-3">
-                            <div class="input-group"><span class="text-primary input-group-text"><i class="fa fa-lock"></i></span><input class="form-control" type="password" required="" placeholder="Password"></div>
-                        </div>
-                        <div class="form-group mb-3">
-                            <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-1" required="" checked=""><label class="form-check-label" for="formCheck-1" style="color: rgb(0,0,0);">I agree to all the terms and conditions.</label></div>
-                        </div>
-                        <div class="form-group mb-3"><button class="btn btn-primary btn-lg" style="width: 100%;" type="button">Sign Up</button></div>
-                    </form>
-                    <hr style="background-color: #bababa;">
-                </div>
-            </div>
-        </div>
-    </div>
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js" type="module"></script>
-    <script src="assets/js/grayscale.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.js"></script>
-    <script src="https://unpkg.com/@bootstrapstudio/bootstrap-better-nav/dist/bootstrap-better-nav.min.js"></script>
-    <script src="assets/js/jquery-3.6.0.min.js"></script>
-    <script src="assets/js/vertical-navbar-with-menu-and-social-menu.js"></script>
+            <a-troika-text value="Are you a garden leader?"
+            position="-1.5 1.4 -2.6"
+            scale=".5 .5 .5"
+            material="shader: flat; color: #ffffff; opacity: 0.8"
+            outline-color=" #ffffff;"></a-troika-text>
+            <a-entity gltf-model="#arrow"
+            id="arrowLeader"
+            arrows class="clickable"
+            position="-1.5 1 -2.4"
+            rotation="0 -190 0"
+            scale="1 1 1"></a-entity>
+
+        <a-entity gltf-model="#scene"
+        animation="property: position;
+        from: 0 0.5 -3; to: 0 0.6 -3; 
+        dir: alternate; 
+        dur: 2000; loop: true"></a-entity>
+
+            <a-troika-text value="Are you a volunteer?"
+            id="VolunteerText"
+            position="1.5 1.4 -2.6"
+            scale=".5 .5 .5"
+            material="shader: flat; color: #ffffff; opacity: 0.8"
+            outline-color=" #ffffff;"></a-troika-text>
+            <a-entity gltf-model="#arrow"
+            id="arrowVolunteer"
+            arrows class="clickable"
+            position="1.5 1 -3"
+            rotation="0 -10 0"
+            scale="1 1 1"></a-entity>
+
+        <a-entity environment="preset: forest"></a-entity>
+      </a-scene>
+
 </body>
-
 </html>
+
+
+
+
+
