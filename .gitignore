@@ -1,6 +1,6 @@
 .env
 .db.env
-/node_modules
+node_modules/
 
 # Compiled class file
 *.class
@@ -26,4 +26,4 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
-.scene
+.scene/
