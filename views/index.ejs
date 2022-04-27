@@ -11,13 +11,75 @@
     <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-troika-text/dist/aframe-troika-text.min.js"></script>
     <script src="https://unpkg.com/aframe-gltf-helpers@0.0.5/dist/aframe-gltf-helpers.min.js"></script>
-    <script src="https://unpkg.com/aframe-environment-component/dist/aframe-environment-component.min.js"></script></head>
+    <script src="https://unpkg.com/aframe-environment-component/dist/aframe-environment-component.min.js"></script>
+<script>
+
+AFRAME.registerComponent('arrows', {
+            init: function(){
+                let el = this.el;
+                let self = this;
+                self.arrows = [];              
+                el.addEventListener("model-loaded", e =>{
+                    let tree3D = el.getObject3D('mesh');
+                    if (!tree3D){return;}    
+                  //console.log('tree3D', tree3D);
+                    tree3D.traverse(function(node){
+                        if (node.isMesh){   
+                          console.log(node);
+                          self.arrows.push(node);                          
+                          node.material = new THREE.MeshStandardMaterial({color: 0x33aa00});
+                        }
+                    });
+              });
+              
+              el.addEventListener('raycaster-intersected', e =>{  
+                self.raycaster = e.detail.el;
+                let intersection = self.raycaster.components.raycaster.getIntersection(el);
+                  console.log('click', intersection.object.name, self.mouseOverObject, 
+                            intersection.object.name != self.mouseOverObject );  
+                if (self.mouseOverObject != intersection.object.name){
+                  intersection.object.material.emissive = new THREE.Color(0xFFFF00);
+                  intersection.object.material.emissiveIntensity = 0.5; 
+                } else {
+                   intersection.object.material.emissive = new THREE.Color(0x000000);
+                  intersection.object.material.emissiveIntensity = 0.0; 
+                }                  
+                  self.mouseOverObject = intersection.object.name;
+              });
+              
+               el.addEventListener('raycaster-intersected-cleared', e =>{  
+                self.arrows.forEach(function(arrow){
+                   arrow.material.emissive = new THREE.Color(0x000000);
+                  arrow.material.emissiveIntensity = 0.0; 
+                });    
+                  self.mouseOverObject = null;
+              });
+              
+              el.addEventListener('click', function(){
+                console.log(self.mouseOverObject);
+                if(self.mouseOverObject === "Trunk_A"){
+                  //console.log('link');
+                  let leaderurl = 'https://bloom-town.herokuapp.com/leader';
+                  let volunteerurl = 'https://bloom-town.herokuapp.com/volunteer';
+                  if (id == "leader"){
+                      window.open(leaderurl);
+                    } else if (id == "volunteer"){
+                        window.open(volunteerurl);
+                    }
+                }
+              });
+            }
+        });
+
+</script>
+</head>
     <body class="three">
     <a-scene>
         <a-assets>
             <a-asset-item id="scene" src="assets/models/scene.gltf"></a-asset-item>
             <a-asset-item id="arrow" src="assets/models/arrow.gltf"></a-asset-item>
         </a-assets>
+        <a-entity id="mouseCursor" cursor="rayOrigin: mouse" raycaster="objects: .clickable"></a-entity>
         <a-troika-text value="Welcome to BloomTown"
             position="0 3 -4"
             scale="4 4 4"
@@ -30,7 +92,8 @@
             material="shader: flat; color: #ffffff; opacity: 0.8"
             outline-color=" #ffffff;"></a-troika-text>
             <a-entity gltf-model="#arrow"
-            link="href: leader.ejs; on: click"
+            id="arrowLeader"
+            arrows class="clickable"
             position="-1.5 1 -2.4"
             rotation="0 -190 0"
             scale="1 1 1"></a-entity>
@@ -42,11 +105,14 @@
         dur: 2000; loop: true"></a-entity>
 
             <a-troika-text value="Are you a volunteer?"
+            id="VolunteerText"
             position="1.5 1.4 -2.6"
             scale=".5 .5 .5"
             material="shader: flat; color: #ffffff; opacity: 0.8"
             outline-color=" #ffffff;"></a-troika-text>
             <a-entity gltf-model="#arrow"
+            id="arrowVolunteer"
+            arrows class="clickable"
             position="1.5 1 -3"
             rotation="0 -10 0"
             scale="1 1 1"></a-entity>
