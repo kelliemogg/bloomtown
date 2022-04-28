@@ -19,9 +19,13 @@ app.use(function(req, res, next) {
 
 // Render CSS and JS files
 app.use(express.static(__dirname + '/public/'));
+app.use(express.static(__dirname + '/views/'));
 
 // Set view engine
 app.set('view engine', 'ejs')
+//app.engine('html', ejs.renderFile);
+//app.set('view engine', 'html')
+
 
 //Setup port for application
 app.listen(PORT, () => {

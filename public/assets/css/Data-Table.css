@@ -35,7 +35,7 @@ td, th {
   display: block;
 }
 
-.res-table td: first-child {
+.res-table td:first-child {
   padding-top: .5em;
 }
 
