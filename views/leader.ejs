@@ -167,29 +167,42 @@
                   <div class="form-group mb-3">
                     <div class="input-group"><span class="text-primary input-group-text"><i
                           class="fa fa-leaf"></i></span>
-                      <div class="dropdown" style="width: 200px;"><button
-                          class="btn btn-primary dropdown-toggle rounded-0 rounded-end" aria-expanded="false"
-                          data-bs-toggle="dropdown" type="button"
-                          style="width: 225px;height: 42px;margin: 0px;padding: 0px;">Dropdown </button>
-                        <div class="dropdown-menu"><a class="dropdown-item" href="#">First Item</a><a
-                            class="dropdown-item" href="#">Second Item</a><a class="dropdown-item" href="#">Third
-                            Item</a></div>
+                      <div class="dropdown" style="width: 200px;">
+                        <select class="btn btn-primary dropdown-toggle rounded-0 rounded-end" aria-expanded="false"
+                          data-bs-toggle="dropdown" type="select" id="new_task_garden"
+                          style="width: 225px;height: 42px;margin: 0px;padding: 0px;">
+                          <div class="dropdown-menu">
+                            <option value="">-- Select Garden --</option>
+                            <% for (let j=0; j < data.garden_result.length; j++) { %>
+                              <option class="dropdown-item" value=<%=data.garden_result[j].identity.low %>>
+                                <%= data.garden_result[j].properties.name %>
+                              </option>
+                              <% } %>
+                          </div>
+                        </select>
                       </div>
                     </div>
                   </div>
                   <div class="form-group mb-3">
-                    <div class="input-group" style="margin-bottom: 15px;"><span class="text-primary input-group-text"><i
-                          class="fa fa-check"></i></span><input class="form-control" type="text" required=""
-                        placeholder="Task Name"></div>
-                    <div class="input-group" style="margin-bottom: 15px;"><span class="text-primary input-group-text"><i
-                          class="fa fa-check"></i></span><input class="form-control" type="text" required=""
-                        placeholder="Instructions"></div>
-                    <div class="input-group"><span class="text-primary input-group-text"><i
-                          class="fa fa-check"></i></span><input class="form-control" type="text" required=""
-                        placeholder="Due Date"></div>
+                    <div class="input-group" style="margin-bottom: 15px;">
+                      <span class="text-primary input-group-text">
+                        <i class="fa fa-check"></i>
+                      </span>
+                      <input id="new_task_dis" class="form-control" type="text" required=""
+                        placeholder="Task Discription">
+                    </div>
+                    <div class="input-group">
+                      <span class="text-primary input-group-text">
+                        <i class="fa fa-check"></i>
+                      </span>
+                      <input id="new_task_due" class="form-control" type="text" required="" placeholder="Due Date">
+                    </div>
                   </div>
-                  <div class="form-group mb-3"><button class="btn btn-primary btn-lg" style="width: 100%;"
-                      type="button">Add Task</button></div>
+                  <div class="form-group mb-3">
+                    <button class="btn btn-primary btn-lg" style="width: 100%;" type="button" onclick="newTask()">
+                      Add Task
+                    </button>
+                  </div>
                 </form>
                 <hr style="background-color: #bababa;">
               </div>
@@ -207,26 +220,50 @@
                 <div class="text-center"></div>
                 <div class="text-center mt-2"></div>
                 <form class="mt-4">
+                  <!-- Get input to pass to create garden function -->
                   <div class="form-group mb-3">
-                    <div class="input-group"><span class="text-primary input-group-text"><i
-                          class="fa fa-leaf"></i></span><input class="form-control" type="text" required=""
-                        placeholder="Garden Name"></div>
+                    <div class="input-group">
+                      <span class="text-primary input-group-text">
+                        <i class="fa fa-leaf"></i>
+                      </span>
+                      <input id="new_garden_name" class="form-control" type="text" required=""
+                        placeholder="Garden Name">
+                    </div>
                   </div>
                   <div class="form-group mb-3">
-                    <div class="input-group" style="margin-bottom: 16px;"><span class="text-primary input-group-text"><i
-                          class="fa fa-address-book-o"></i></span><input class="form-control" type="text" required=""
-                        placeholder="Street Address"></div>
-                    <div class="input-group" style="margin-bottom: 16px;"><span class="text-primary input-group-text"><i
-                          class="fa fa-map-pin"></i></span><input class="form-control" type="text" required=""
-                        placeholder="City"></div>
-                    <div class="input-group" style="margin-bottom: 16px;"><span class="text-primary input-group-text"><i
-                          class="fa fa-angle-double-right"></i></span><input class="form-control" type="text"
-                        required="" placeholder="State"></div>
-                    <div class="input-group"><span class="text-primary input-group-text"><i
-                          class="fa fa-send-o"></i></span><input class="form-control" type="text" required=""
-                        placeholder="Zip Code"></div>
+                    <div class="input-group" style="margin-bottom: 16px;">
+                      <span class="text-primary input-group-text">
+                        <i class="fa fa-address-book-o"></i>
+                      </span>
+                      <input id="new_garden_number" class="form-control" type="text" required=""
+                        placeholder="Building Number">
+                    </div>
+                    <div class="input-group" style="margin-bottom: 16px;">
+                      <span class="text-primary input-group-text">
+                        <i class="fa fa-address-book-o"></i>
+                      </span>
+                      <input id="new_garden_street" class="form-control" type="text" required="" placeholder="Street">
+                    </div>
+                    <div class="input-group" style="margin-bottom: 16px;">
+                      <span class="text-primary input-group-text">
+                        <i class="fa fa-map-pin"></i>
+                      </span>
+                      <input id="new_garden_city" class="form-control" type="text" required="" placeholder="City">
+                    </div>
+                    <div class="input-group" style="margin-bottom: 16px;">
+                      <span class="text-primary input-group-text">
+                        <i class="fa fa-angle-double-right"></i>
+                      </span>
+                      <input id="new_garden_state" class="form-control" type="text" required="" placeholder="State">
+                    </div>
+                    <div class="input-group">
+                      <span class="text-primary input-group-text">
+                        <i class="fa fa-send-o"></i>
+                      </span>
+                      <input id="new_garden_zip" class="form-control" type="text" required="" placeholder="Zip Code">
+                    </div>
                   </div>
-                  <div class="form-group mb-3">
+                  <!-- <div class="form-group mb-3">
                     <div class="input-group"><span class="text-primary input-group-text"
                         style="margin-bottom: 12px;">Garden Type</span></div>
                     <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-2"><label
@@ -235,19 +272,25 @@
                     <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-3"><label
                         class="form-check-label" for="formCheck-3" style="color: rgb(0,0,0);">Community Garden</label>
                     </div>
-                  </div>
-                  <div class="form-group mb-3">
+                  </div> -->
+                  <!-- <div class="form-group mb-3">
                     <div class="input-group"><span class="text-primary input-group-text"><i
                           class="fa fa-newspaper-o"></i></span><input class="form-control" type="text" required=""
                         placeholder="Description (Optional)"></div>
-                  </div>
+                  </div> -->
                   <div class="form-group mb-3">
-                    <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-1" required=""
-                        checked=""><label class="form-check-label" for="formCheck-1" style="color: rgb(0,0,0);">I agree
-                        to all the terms and conditions.</label></div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="formCheck-1" required="" checked="">
+                        <label class="form-check-label" for="formCheck-1" style="color: rgb(0,0,0);">
+                          I agree to all the terms and conditions.
+                        </label>
+                      </div>
                   </div>
-                  <div class="form-group mb-3"><button class="btn btn-primary btn-lg" style="width: 100%;"
-                      type="button">Confirm</button></div>
+                  <!-- Set onclick to create new garden -->
+                  <div class="form-group mb-3">
+                    <button class="btn btn-primary btn-lg" style="width: 100%;" type="button"
+                      onclick="newGarden()">Confirm</button>
+                  </div>
                 </form>
                 <hr style="background-color: #bababa;">
               </div>
@@ -265,23 +308,19 @@
   <script src="assets/js/jquery-3.6.0.min.js"></script>
   <script src="assets/js/vertical-navbar-with-menu-and-social-menu.js"></script>
   <script>
-    // Embedded due to conflict between ejs and js
     function filterTasks() {
       const rows = document.getElementsByClassName("task_data")
       const garden_input = document.getElementById("garden").value.toLowerCase()
       const zipcode_input = document.getElementById("zipcode_input").value
       const city_input = document.getElementById("city_input").value.toLowerCase()
       const state_input = document.getElementById("state_input").value.toLowerCase()
-
       const status_input = (function () {
         const radio = document.getElementsByClassName("radio");
-
         for (i = 0; i < radio.length; i++) {
           if (radio[i].checked)
             return radio[i].value.toLowerCase();
         }
       })()
-
       for (i = 0; i < rows.length; i++) {
         const rows = document.getElementsByClassName("task_data")
         const garden_row = rows[i].children[1].innerHTML.toLowerCase().trim()
@@ -290,35 +329,29 @@
         const state_row = location_row[1].trim()
         const zipcode_row = location_row[2].trim()
         const status_row = rows[i].children[4].innerHTML.toLowerCase().trim()
-
         // Show all rows.
         rows[i].style.display = ''
-
         // Hide rows that do not match filter criteria.
         if (garden_input.length > 0) {
           if (garden_row != garden_input) {
             rows[i].style.display = "none"
           }
         }
-
         if (city_input.length > 0) {
           if (city_row != city_input) {
             rows[i].style.display = "none"
           }
         }
-
         if (state_input.length > 0) {
           if (state_row != state_input) {
             rows[i].style.display = "none"
           }
         }
-
         if (zipcode_input.length > 0) {
           if (zipcode_row != zipcode_input) {
             rows[i].style.display = "none"
           }
         }
-
         if (status_input != "all") {
           if (status_input == "current") {
             if (status_row != "open" && status_row != "claimed") {
@@ -332,7 +365,42 @@
         }
       }
     }
+    function newTask() {
+      const garden_id = document.getElementById("new_task_garden").value
+      const description = document.getElementById("new_task_dis").value
+      const due_date = document.getElementById("new_task_due").value
+      const data = {
+        id: garden_id,
+        description: description,
+        due_date: due_date
+      }
+      $.post(("https://bloom-town.herokuapp.com/api/garden/id/" + garden_id + "/tasks"), data, function (data, status) {
+        alert(status);
+      })
+    }
+    function newGarden() {
+      const user_id = "4"
+      const name = document.getElementById("new_garden_name").value
+      const building_num = document.getElementById("new_garden_number").value
+      const city = document.getElementById("new_garden_city").value
+      const state = document.getElementById("new_garden_state").value
+      const street = document.getElementById("new_garden_street").value
+      const zip = document.getElementById("new_garden_zip").value
+      const data = {
+        name: name,
+        building_num: building_num,
+        street: street,
+        city: city,
+        state: state,
+        country: "USA",
+        zip: zip
+      }
+      $.post(("https://bloom-town.herokuapp.com/api/user/id/" + user_id + "/leads"), data, function (data, status) {
+        alert(status);
+      })
+    }
   </script>
+
 </body>
 
 </html>

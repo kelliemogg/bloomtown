@@ -164,23 +164,19 @@
   <script src="assets/js/jquery-3.6.0.min.js"></script>
   <script src="assets/js/vertical-navbar-with-menu-and-social-menu.js"></script>
   <script>
-    // Embedded due to conflict between ejs and js
     function filterTasks() {
       const rows = document.getElementsByClassName("task_data")
       const garden_input = document.getElementById("garden").value.toLowerCase()
       const zipcode_input = document.getElementById("zipcode_input").value
       const city_input = document.getElementById("city_input").value.toLowerCase()
       const state_input = document.getElementById("state_input").value.toLowerCase()
-
       const status_input = (function () {
         const radio = document.getElementsByClassName("radio");
-
         for (i = 0; i < radio.length; i++) {
           if (radio[i].checked)
             return radio[i].value.toLowerCase();
         }
       })()
-
       for (i = 0; i < rows.length; i++) {
         const rows = document.getElementsByClassName("task_data")
         const garden_row = rows[i].children[1].innerHTML.toLowerCase().trim()
@@ -189,35 +185,29 @@
         const state_row = location_row[1].trim()
         const zipcode_row = location_row[2].trim()
         const status_row = rows[i].children[4].innerHTML.toLowerCase().trim()
-
         // Show all rows.
         rows[i].style.display = ''
-
         // Hide rows that do not match filter criteria.
         if (garden_input.length > 0) {
           if (garden_row != garden_input) {
             rows[i].style.display = "none"
           }
         }
-
         if (city_input.length > 0) {
           if (city_row != city_input) {
             rows[i].style.display = "none"
           }
         }
-
         if (state_input.length > 0) {
           if (state_row != state_input) {
             rows[i].style.display = "none"
           }
         }
-
         if (zipcode_input.length > 0) {
           if (zipcode_row != zipcode_input) {
             rows[i].style.display = "none"
           }
         }
-
         if (status_input != "all") {
           if (status_input == "current") {
             if (status_row != "open" && status_row != "claimed") {
